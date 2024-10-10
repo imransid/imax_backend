@@ -1,0 +1,45 @@
+services:
+  users:
+    build:
+      context: .
+      dockerfile: ./apps/users/Dockerfile
+      target: development
+    command: npm run start:dev users
+    env_file:
+      - ./apps/users/.env
+    depends_on:
+      - db
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - "4001:4001"
+  # gateway:
+  #   build:
+  #     context: .
+  #     dockerfile: ./apps/gateway/Dockerfile
+  #     target: development
+  #   command: npm run start:dev gateway
+  #   env_file:
+  #     - ./apps/gateway/.env
+  #   depends_on:
+  #     - db
+  #   volumes:
+  #     - .:/usr/src/app
+  #     - /usr/src/app/node_modules
+  #   ports:
+  #     - "4000:4000"
+  db:
+    container_name: pg_db
+    image: postgres:16.0
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=teamMobilePharma
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+volumes:
+  postgres-data:
