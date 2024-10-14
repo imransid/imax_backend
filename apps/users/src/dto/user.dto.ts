@@ -56,3 +56,71 @@ export class LoginDto {
   @MinLength(8, { message: "Password must be 8 characters. " })
   password: string;
 }
+
+
+@InputType()
+export class MedicineDto{
+  @Field()
+  @IsNotEmpty()
+  @IsString()
+  medicineName: string;
+
+  @Field()
+  @IsNotEmpty()
+  @IsString()
+  medicineStatus: string;
+
+  @Field()
+  @IsNotEmpty()
+  @IsString()
+  takeStatus: string;
+
+  @Field()
+  @IsNotEmpty()
+  @IsString()
+  doseQuantity: string;
+
+  @Field()
+  @IsNotEmpty()
+  @IsString()
+  doseTime: string;
+}
+
+
+@InputType()
+export class MedicineSettingDto{
+  @Field()
+  @IsNotEmpty()
+  @IsString()
+  InstrucTion: string;
+
+  @Field()
+  @IsNotEmpty()
+  @IsString()
+  MedicineTakeEachDay: string;
+
+  @Field()
+  @IsNotEmpty()
+  @IsString()
+  treatmentDurationStartTime: string;
+
+  @Field()
+  @IsNotEmpty()
+  @IsString()
+  treatmentDurationEndTime: string;
+
+  @Field()
+  @IsNotEmpty()
+  @IsString()
+  medicineReminderTotalReq: string;
+
+  @Field()
+  @IsNotEmpty()
+  @IsString()
+  medicineReminderCurrentStock: string;
+
+  @Field()
+  @IsNotEmpty()
+  @IsString()
+  medicineReminderRemindToLeft: string;
+}

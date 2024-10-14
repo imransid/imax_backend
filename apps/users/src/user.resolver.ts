@@ -1,10 +1,12 @@
 import { Args, Context, Mutation, Resolver, Query } from "@nestjs/graphql";
+import { BadRequestException, UseFilters, UseGuards } from '@nestjs/common';
 import { UsersService } from "./users.service";
 import { LoginResponse, RegisterResponse } from "./types/user.type";
 import { RegisterDto, LoginDto } from "./dto/user.dto";
-import { BadRequestException } from "@nestjs/common";
 import { Response } from "express";
 import { User } from "./entities/user.entity";
+import { AuthGuard } from './guards/auth.guards';
+
 
 @Resolver("User")
 export class usersResolvers {
@@ -19,7 +21,6 @@ export class usersResolvers {
       throw new BadRequestException("Please fill the all fields");
     }
     const user = await this.userService.register(registerDto, context.res);
-
     return { user };
   }
 
@@ -29,7 +30,11 @@ export class usersResolvers {
     @Args('password') password: string,
   ): Promise<LoginResponse> {
     try {
-      return await this.userService.login(mobileNumber, password);
+      let res = await this.userService.login(mobileNumber, password);
+
+      console.log("res", res)
+
+      return res
     } catch (error) {
       console.error("Login error:", error);
       throw new BadRequestException(error.message); // or another appropriate exception
@@ -37,7 +42,8 @@ export class usersResolvers {
   }
 
   @Query(() => [User])
-  async getUser() {
-    return await this.userService.getUsers();
+  @UseGuards(AuthGuard)
+  async async (@Context() context: { req: Request }) {
+    return await this.userService.getUsers(context.req);
   }
 }

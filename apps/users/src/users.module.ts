@@ -10,6 +10,8 @@ import {
 import { ConfigService } from "@nestjs/config";
 import { JwtService } from "@nestjs/jwt";
 import { usersResolvers } from "./user.resolver";
+import { medicineResolvers } from "./medicine.resolver";
+import { MedicineService } from "./medicine.service";
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloFederationDriverConfig>({
@@ -22,10 +24,12 @@ import { usersResolvers } from "./user.resolver";
   controllers: [UsersController],
   providers: [
     UsersService,
+    MedicineService,
     ConfigService,
     JwtService,
     PrismaService,
     usersResolvers,
+    medicineResolvers
   ],
 })
 export class UsersModule {}

@@ -20,16 +20,6 @@ export class UsersService {
     const { fullName, email, password, mobileNumber, gender, birthday } =
       registerDto;
 
-    const isEmailExits = await this.prisma.user.findUnique({
-      where: {
-        email,
-      },
-    });
-
-    if (isEmailExits) {
-      throw new BadRequestException("User already exits with this email!");
-    }
-
     const isPhoneNumberExits = await this.prisma.user.findUnique({
       where: {
         mobileNumber,
@@ -90,7 +80,7 @@ export class UsersService {
     return await bcrypt.compare(password, hashed)
   }
 
-  async getUsers() {
+  async getUsers(req : any) {
     return this.prisma.user.findMany();
   }
 }

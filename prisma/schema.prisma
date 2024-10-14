@@ -7,26 +7,69 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// model User {
-//   id           Int      @id @default(autoincrement())
-//   fullName     String
-//   email        String
-//   mobileNumber String
-//   password     String
-//   gender       String
-//   birthday     String
-//   createdAt    DateTime @default(now())
-//   updatedAt    DateTime @updatedAt
-// }
-
 model User {
-  id           Int      @id @default(autoincrement())
+  id           Int               @id @default(autoincrement())
   fullName     String
-  email        String   @unique
-  mobileNumber String   @unique
-  birthday     String
-  gender       String
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  mobileNumber String            @unique
+  email        String
   password     String
+  gender       String
+  birthday     String
+  medicines    MedicineDetails[] // One user can have many medicines
+}
+
+model MedicineDetails {
+  id             Int    @id @default(autoincrement())
+  userID         Int // Foreign key to User
+  medicineName   String
+  medicineStatus String
+  takeStatus     String
+  doseQuantity   String
+  doseTime       String
+  user           User   @relation(fields: [userID], references: [id])
+
+  // One-to-one relation with MedicineDetailsExtraSetting
+  MedicineDetailsExtraSetting MedicineDetailsExtraSetting[]
+}
+
+model MedicineDetailsExtraSetting {
+  id                           Int    @id @default(autoincrement())
+  InstrucTion                  String
+  MedicineTakeEachDay          String
+  treatmentDurationStartTime   String
+  treatmentDurationEndTime     String
+  medicineReminderTotalReq     String
+  medicineReminderCurrentStock String
+  medicineReminderRemindToLeft String
+
+  MedicineDetails   MedicineDetails? @relation(fields: [medicineDetailsId], references: [id])
+  medicineDetailsId Int?
+
+  // Optional one-to-one relation to Prescription and Appointment
+  prescriptionId Int? @unique
+  appointmentId  Int? @unique
+
+  // Relations (foreign keys specified here)
+  prescription Prescription? @relation(fields: [prescriptionId], references: [id])
+  appointment  Appointment?  @relation(fields: [appointmentId], references: [id])
+}
+
+model Appointment {
+  id          Int    @id @default(autoincrement())
+  date        String
+  time        String
+  doctorName  String
+  location    String
+  setReminder String
+
+  // Back relation from MedicineDetailsExtraSetting (no foreign key here)
+  medicineDetailsExtra MedicineDetailsExtraSetting?
+}
+
+model Prescription {
+  id       Int    @id @default(autoincrement())
+  filePath String
+
+  // Back relation from MedicineDetailsExtraSetting (no foreign key here)
+  medicineDetailsExtra MedicineDetailsExtraSetting?
 }

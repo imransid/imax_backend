@@ -19,7 +19,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.LoginDto = exports.RegisterDto = void 0;
+exports.MedicineSettingDto = exports.MedicineDto = exports.LoginDto = exports.RegisterDto = void 0;
 const graphql_1 = __webpack_require__(/*! @nestjs/graphql */ "@nestjs/graphql");
 const class_validator_1 = __webpack_require__(/*! class-validator */ "class-validator");
 let RegisterDto = class RegisterDto {
@@ -92,6 +92,90 @@ __decorate([
 exports.LoginDto = LoginDto = __decorate([
     (0, graphql_1.InputType)()
 ], LoginDto);
+let MedicineDto = class MedicineDto {
+};
+exports.MedicineDto = MedicineDto;
+__decorate([
+    (0, graphql_1.Field)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], MedicineDto.prototype, "medicineName", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], MedicineDto.prototype, "medicineStatus", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], MedicineDto.prototype, "takeStatus", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], MedicineDto.prototype, "doseQuantity", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], MedicineDto.prototype, "doseTime", void 0);
+exports.MedicineDto = MedicineDto = __decorate([
+    (0, graphql_1.InputType)()
+], MedicineDto);
+let MedicineSettingDto = class MedicineSettingDto {
+};
+exports.MedicineSettingDto = MedicineSettingDto;
+__decorate([
+    (0, graphql_1.Field)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], MedicineSettingDto.prototype, "InstrucTion", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], MedicineSettingDto.prototype, "MedicineTakeEachDay", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], MedicineSettingDto.prototype, "treatmentDurationStartTime", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], MedicineSettingDto.prototype, "treatmentDurationEndTime", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], MedicineSettingDto.prototype, "medicineReminderTotalReq", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], MedicineSettingDto.prototype, "medicineReminderCurrentStock", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], MedicineSettingDto.prototype, "medicineReminderRemindToLeft", void 0);
+exports.MedicineSettingDto = MedicineSettingDto = __decorate([
+    (0, graphql_1.InputType)()
+], MedicineSettingDto);
 
 
 /***/ }),
@@ -113,7 +197,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.User = void 0;
+exports.Prescription = exports.Appointment = exports.MedicineDetailsExtraSetting = exports.MedicineDetails = exports.User = void 0;
 const graphql_1 = __webpack_require__(/*! @nestjs/graphql */ "@nestjs/graphql");
 let User = class User {
 };
@@ -137,15 +221,440 @@ __decorate([
 __decorate([
     (0, graphql_1.Field)(),
     __metadata("design:type", String)
+], User.prototype, "email", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
 ], User.prototype, "gender", void 0);
 __decorate([
     (0, graphql_1.Field)(),
     __metadata("design:type", String)
 ], User.prototype, "birthday", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => [MedicineDetails], { nullable: true }),
+    __metadata("design:type", Array)
+], User.prototype, "medicines", void 0);
 exports.User = User = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, graphql_1.Directive)('@key(fields: "id")')
 ], User);
+let MedicineDetails = class MedicineDetails {
+};
+exports.MedicineDetails = MedicineDetails;
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", Number)
+], MedicineDetails.prototype, "id", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => User),
+    __metadata("design:type", User)
+], MedicineDetails.prototype, "user", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", Number)
+], MedicineDetails.prototype, "userID", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], MedicineDetails.prototype, "medicineName", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], MedicineDetails.prototype, "medicineStatus", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], MedicineDetails.prototype, "takeStatus", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], MedicineDetails.prototype, "birthday", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], MedicineDetails.prototype, "doseQuantity", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], MedicineDetails.prototype, "doseTime", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => [MedicineDetailsExtraSetting], { nullable: true }),
+    __metadata("design:type", Array)
+], MedicineDetails.prototype, "MedicineDetailsExtraSetting", void 0);
+exports.MedicineDetails = MedicineDetails = __decorate([
+    (0, graphql_1.ObjectType)(),
+    (0, graphql_1.Directive)('@key(fields: "id")')
+], MedicineDetails);
+let MedicineDetailsExtraSetting = class MedicineDetailsExtraSetting {
+};
+exports.MedicineDetailsExtraSetting = MedicineDetailsExtraSetting;
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", Number)
+], MedicineDetailsExtraSetting.prototype, "id", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => MedicineDetails),
+    __metadata("design:type", MedicineDetails)
+], MedicineDetailsExtraSetting.prototype, "MedicineDetails", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", Number)
+], MedicineDetailsExtraSetting.prototype, "medicineDetailsId", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], MedicineDetailsExtraSetting.prototype, "InstrucTion", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], MedicineDetailsExtraSetting.prototype, "MedicineTakeEachDay", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], MedicineDetailsExtraSetting.prototype, "treatmentDurationStartTime", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], MedicineDetailsExtraSetting.prototype, "treatmentDurationEndTime", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], MedicineDetailsExtraSetting.prototype, "medicineReminderTotalReq", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], MedicineDetailsExtraSetting.prototype, "medicineReminderCurrentStock", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], MedicineDetailsExtraSetting.prototype, "medicineReminderRemindToLeft", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => [Appointment], { nullable: true }),
+    __metadata("design:type", Array)
+], MedicineDetailsExtraSetting.prototype, "appointment", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => [Prescription], { nullable: true }),
+    __metadata("design:type", Array)
+], MedicineDetailsExtraSetting.prototype, "prescription", void 0);
+exports.MedicineDetailsExtraSetting = MedicineDetailsExtraSetting = __decorate([
+    (0, graphql_1.ObjectType)(),
+    (0, graphql_1.Directive)('@key(fields: "id")')
+], MedicineDetailsExtraSetting);
+let Appointment = class Appointment {
+};
+exports.Appointment = Appointment;
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", Number)
+], Appointment.prototype, "id", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], Appointment.prototype, "date", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], Appointment.prototype, "time", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], Appointment.prototype, "doctorName", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], Appointment.prototype, "location", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], Appointment.prototype, "setReminder", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", MedicineDetailsExtraSetting)
+], Appointment.prototype, "MedicineDetailsExtraSettingID", void 0);
+exports.Appointment = Appointment = __decorate([
+    (0, graphql_1.ObjectType)(),
+    (0, graphql_1.Directive)('@key(fields: "id")')
+], Appointment);
+let Prescription = class Prescription {
+};
+exports.Prescription = Prescription;
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", Number)
+], Prescription.prototype, "id", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], Prescription.prototype, "filePath", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", MedicineDetailsExtraSetting)
+], Prescription.prototype, "MedicineDetailsExtraSettingID", void 0);
+exports.Prescription = Prescription = __decorate([
+    (0, graphql_1.ObjectType)(),
+    (0, graphql_1.Directive)('@key(fields: "id")')
+], Prescription);
+
+
+/***/ }),
+
+/***/ "./apps/users/src/guards/auth.guards.ts":
+/*!**********************************************!*\
+  !*** ./apps/users/src/guards/auth.guards.ts ***!
+  \**********************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a, _b, _c;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.AuthGuard = void 0;
+const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+const jwt_1 = __webpack_require__(/*! @nestjs/jwt */ "@nestjs/jwt");
+const prisma_service_1 = __webpack_require__(/*! ../../../../prisma/prisma.service */ "./prisma/prisma.service.ts");
+const graphql_1 = __webpack_require__(/*! @nestjs/graphql */ "@nestjs/graphql");
+const config_1 = __webpack_require__(/*! @nestjs/config */ "@nestjs/config");
+let AuthGuard = class AuthGuard {
+    constructor(jwtService, prismaService, configService) {
+        this.jwtService = jwtService;
+        this.prismaService = prismaService;
+        this.configService = configService;
+    }
+    async canActivate(context) {
+        const gplContext = graphql_1.GqlExecutionContext.create(context);
+        const { req } = gplContext.getContext();
+        const accessTokenWith = req.headers.authorization;
+        const accessToken = accessTokenWith.split(' ')[1];
+        if (!accessToken) {
+            throw new common_1.UnauthorizedException('Please login to access this resource.!');
+        }
+        if (accessToken) {
+            const decoded = this.jwtService.verify(accessToken, {
+                secret: this.configService.get('ACCESS_TOKEN_EXPIRE'),
+            });
+            if (!decoded) {
+                throw new common_1.UnauthorizedException('Invalid access token');
+            }
+            await this.updateAccessToken(req, decoded);
+        }
+        return true;
+    }
+    async updateAccessToken(req, decoded) {
+        try {
+            const user = await this.prismaService.user.findUnique({
+                where: {
+                    id: decoded.id,
+                },
+            });
+            const accessToken = this.jwtService.sign({
+                id: user.id,
+            }, {
+                secret: this.configService.get('ACCESS_TOKEN_SECRET'),
+                expiresIn: '50m',
+            });
+            req.accesstoken = accessToken;
+            req.user = user;
+        }
+        catch (error) { }
+    }
+};
+exports.AuthGuard = AuthGuard;
+exports.AuthGuard = AuthGuard = __decorate([
+    (0, common_1.Injectable)(),
+    __metadata("design:paramtypes", [typeof (_a = typeof jwt_1.JwtService !== "undefined" && jwt_1.JwtService) === "function" ? _a : Object, typeof (_b = typeof prisma_service_1.PrismaService !== "undefined" && prisma_service_1.PrismaService) === "function" ? _b : Object, typeof (_c = typeof config_1.ConfigService !== "undefined" && config_1.ConfigService) === "function" ? _c : Object])
+], AuthGuard);
+
+
+/***/ }),
+
+/***/ "./apps/users/src/medicine.resolver.ts":
+/*!*********************************************!*\
+  !*** ./apps/users/src/medicine.resolver.ts ***!
+  \*********************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var _a, _b, _c, _d, _e;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.medicineResolvers = void 0;
+const graphql_1 = __webpack_require__(/*! @nestjs/graphql */ "@nestjs/graphql");
+const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+const user_type_1 = __webpack_require__(/*! ./types/user.type */ "./apps/users/src/types/user.type.ts");
+const user_dto_1 = __webpack_require__(/*! ./dto/user.dto */ "./apps/users/src/dto/user.dto.ts");
+const auth_guards_1 = __webpack_require__(/*! ./guards/auth.guards */ "./apps/users/src/guards/auth.guards.ts");
+const medicine_service_1 = __webpack_require__(/*! ./medicine.service */ "./apps/users/src/medicine.service.ts");
+let medicineResolvers = class medicineResolvers {
+    constructor(medicineService) {
+        this.medicineService = medicineService;
+    }
+    async medicineDetails(medicineDto, context) {
+        try {
+            if (!medicineDto.medicineName && !medicineDto.medicineStatus && !medicineDto.doseTime && !medicineDto.takeStatus && !medicineDto.doseQuantity) {
+                throw new common_1.BadRequestException("Please fill the all fields");
+            }
+            this.medicineService.setMedicineDetails(medicineDto, context);
+            const message = "Medicine details successfully processed";
+            return {
+                message,
+                error: null,
+            };
+        }
+        catch (error) {
+            return {
+                message: "An error occurred while processing medicine details",
+                error: {
+                    code: "MEDICINE_PROCESSING_ERROR",
+                    message: error.message || "Unknown error",
+                },
+            };
+        }
+    }
+    async medicineDetailsSetting(medicineSettingDto, context) {
+        try {
+            if (!medicineSettingDto.InstrucTion && !medicineSettingDto.MedicineTakeEachDay && !medicineSettingDto.medicineReminderCurrentStock && !medicineSettingDto.medicineReminderRemindToLeft && !medicineSettingDto.medicineReminderTotalReq && !medicineSettingDto.treatmentDurationEndTime && !medicineSettingDto.treatmentDurationStartTime) {
+                throw new common_1.BadRequestException("Please fill the all fields");
+            }
+            this.medicineService.setMedicineInputSetting(medicineSettingDto, context);
+            const message = "Medicine details successfully processed";
+            return {
+                message,
+                error: null,
+            };
+        }
+        catch (error) {
+            return {
+                message: "An error occurred while processing medicine details",
+                error: {
+                    code: "MEDICINE_PROCESSING_ERROR",
+                    message: error.message || "Unknown error",
+                },
+            };
+        }
+    }
+};
+exports.medicineResolvers = medicineResolvers;
+__decorate([
+    (0, graphql_1.Mutation)(() => user_type_1.MedicineResponse),
+    (0, common_1.UseGuards)(auth_guards_1.AuthGuard),
+    __param(0, (0, graphql_1.Args)("medicineInput")),
+    __param(1, (0, graphql_1.Context)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_b = typeof user_dto_1.MedicineDto !== "undefined" && user_dto_1.MedicineDto) === "function" ? _b : Object, Object]),
+    __metadata("design:returntype", typeof (_c = typeof Promise !== "undefined" && Promise) === "function" ? _c : Object)
+], medicineResolvers.prototype, "medicineDetails", null);
+__decorate([
+    (0, graphql_1.Mutation)(() => user_type_1.MedicineResponse),
+    (0, common_1.UseGuards)(auth_guards_1.AuthGuard),
+    __param(0, (0, graphql_1.Args)("medicineInputSetting")),
+    __param(1, (0, graphql_1.Context)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_d = typeof user_dto_1.MedicineSettingDto !== "undefined" && user_dto_1.MedicineSettingDto) === "function" ? _d : Object, Object]),
+    __metadata("design:returntype", typeof (_e = typeof Promise !== "undefined" && Promise) === "function" ? _e : Object)
+], medicineResolvers.prototype, "medicineDetailsSetting", null);
+exports.medicineResolvers = medicineResolvers = __decorate([
+    (0, graphql_1.Resolver)("MedicineDetails"),
+    __metadata("design:paramtypes", [typeof (_a = typeof medicine_service_1.MedicineService !== "undefined" && medicine_service_1.MedicineService) === "function" ? _a : Object])
+], medicineResolvers);
+
+
+/***/ }),
+
+/***/ "./apps/users/src/medicine.service.ts":
+/*!********************************************!*\
+  !*** ./apps/users/src/medicine.service.ts ***!
+  \********************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a, _b, _c;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.MedicineService = void 0;
+const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+const config_1 = __webpack_require__(/*! @nestjs/config */ "@nestjs/config");
+const jwt_1 = __webpack_require__(/*! @nestjs/jwt */ "@nestjs/jwt");
+const prisma_service_1 = __webpack_require__(/*! ../../../prisma/prisma.service */ "./prisma/prisma.service.ts");
+let MedicineService = class MedicineService {
+    constructor(jwtService, prisma, configureService) {
+        this.jwtService = jwtService;
+        this.prisma = prisma;
+        this.configureService = configureService;
+    }
+    async setMedicineDetails(medicineDto, context) {
+        try {
+            const { medicineName, medicineStatus, doseTime, doseQuantity, takeStatus } = medicineDto;
+            const accessTokenWith = context.req.headers.authorization;
+            const accessToken = accessTokenWith.split(' ')[1];
+            const decoded = this.jwtService.verify(accessToken, {
+                secret: this.configureService.get('ACCESS_TOKEN_EXPIRE'),
+            });
+            await this.prisma.medicineDetails.create({
+                data: {
+                    medicineName, medicineStatus, doseTime, doseQuantity, takeStatus, userID: decoded.id,
+                }
+            });
+        }
+        catch (err) {
+            console.error("Error saving medicine details:", err);
+            throw new common_1.BadRequestException("Failed to save medicine details.");
+        }
+    }
+    async setMedicineInputSetting(medicineSettingDto, context) {
+        try {
+            const { InstrucTion, medicineReminderCurrentStock, medicineReminderTotalReq, medicineReminderRemindToLeft, treatmentDurationEndTime, treatmentDurationStartTime, MedicineTakeEachDay } = medicineSettingDto;
+            const medicineDetailsId = context.req.body.variables.medicineDetailsID;
+            await this.prisma.medicineDetailsExtraSetting.create({
+                data: {
+                    InstrucTion,
+                    medicineReminderCurrentStock,
+                    medicineReminderTotalReq,
+                    medicineReminderRemindToLeft,
+                    treatmentDurationEndTime,
+                    treatmentDurationStartTime,
+                    MedicineTakeEachDay,
+                    medicineDetailsId: parseInt(medicineDetailsId)
+                }
+            });
+        }
+        catch (err) {
+            console.error("Error saving medicine details: setting", err);
+            throw new common_1.BadRequestException("Failed to save medicine details. setting");
+        }
+    }
+};
+exports.MedicineService = MedicineService;
+exports.MedicineService = MedicineService = __decorate([
+    (0, common_1.Injectable)(),
+    __metadata("design:paramtypes", [typeof (_a = typeof jwt_1.JwtService !== "undefined" && jwt_1.JwtService) === "function" ? _a : Object, typeof (_b = typeof prisma_service_1.PrismaService !== "undefined" && prisma_service_1.PrismaService) === "function" ? _b : Object, typeof (_c = typeof config_1.ConfigService !== "undefined" && config_1.ConfigService) === "function" ? _c : Object])
+], MedicineService);
 
 
 /***/ }),
@@ -168,7 +677,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var _a, _b;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.LoginResponse = exports.RegisterResponse = exports._ErrorType = void 0;
+exports.LoginResponse = exports.MedicineResponse = exports.RegisterResponse = exports._ErrorType = void 0;
 const graphql_1 = __webpack_require__(/*! @nestjs/graphql */ "@nestjs/graphql");
 const user_entity_1 = __webpack_require__(/*! ../entities/user.entity */ "./apps/users/src/entities/user.entity.ts");
 let _ErrorType = class _ErrorType {
@@ -199,6 +708,20 @@ __decorate([
 exports.RegisterResponse = RegisterResponse = __decorate([
     (0, graphql_1.ObjectType)()
 ], RegisterResponse);
+let MedicineResponse = class MedicineResponse {
+};
+exports.MedicineResponse = MedicineResponse;
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], MedicineResponse.prototype, "message", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => _ErrorType, { nullable: true }),
+    __metadata("design:type", _ErrorType)
+], MedicineResponse.prototype, "error", void 0);
+exports.MedicineResponse = MedicineResponse = __decorate([
+    (0, graphql_1.ObjectType)()
+], MedicineResponse);
 let LoginResponse = class LoginResponse {
 };
 exports.LoginResponse = LoginResponse;
@@ -244,11 +767,12 @@ var _a, _b, _c, _d;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.usersResolvers = void 0;
 const graphql_1 = __webpack_require__(/*! @nestjs/graphql */ "@nestjs/graphql");
+const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
 const users_service_1 = __webpack_require__(/*! ./users.service */ "./apps/users/src/users.service.ts");
 const user_type_1 = __webpack_require__(/*! ./types/user.type */ "./apps/users/src/types/user.type.ts");
 const user_dto_1 = __webpack_require__(/*! ./dto/user.dto */ "./apps/users/src/dto/user.dto.ts");
-const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
 const user_entity_1 = __webpack_require__(/*! ./entities/user.entity */ "./apps/users/src/entities/user.entity.ts");
+const auth_guards_1 = __webpack_require__(/*! ./guards/auth.guards */ "./apps/users/src/guards/auth.guards.ts");
 let usersResolvers = class usersResolvers {
     constructor(userService) {
         this.userService = userService;
@@ -262,15 +786,17 @@ let usersResolvers = class usersResolvers {
     }
     async login(mobileNumber, password) {
         try {
-            return await this.userService.login(mobileNumber, password);
+            let res = await this.userService.login(mobileNumber, password);
+            console.log("res", res);
+            return res;
         }
         catch (error) {
             console.error("Login error:", error);
             throw new common_1.BadRequestException(error.message);
         }
     }
-    async getUser() {
-        return await this.userService.getUsers();
+    async async(context) {
+        return await this.userService.getUsers(context.req);
     }
 };
 exports.usersResolvers = usersResolvers;
@@ -292,10 +818,12 @@ __decorate([
 ], usersResolvers.prototype, "login", null);
 __decorate([
     (0, graphql_1.Query)(() => [user_entity_1.User]),
+    (0, common_1.UseGuards)(auth_guards_1.AuthGuard),
+    __param(0, (0, graphql_1.Context)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
-], usersResolvers.prototype, "getUser", null);
+], usersResolvers.prototype, "async", null);
 exports.usersResolvers = usersResolvers = __decorate([
     (0, graphql_1.Resolver)("User"),
     __metadata("design:paramtypes", [typeof (_a = typeof users_service_1.UsersService !== "undefined" && users_service_1.UsersService) === "function" ? _a : Object])
@@ -329,17 +857,8 @@ let UsersController = class UsersController {
     constructor(usersService) {
         this.usersService = usersService;
     }
-    getUsers() {
-        return this.usersService.getUsers();
-    }
 };
 exports.UsersController = UsersController;
-__decorate([
-    (0, common_1.Get)(),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Object)
-], UsersController.prototype, "getUsers", null);
 exports.UsersController = UsersController = __decorate([
     (0, common_1.Controller)(),
     __metadata("design:paramtypes", [typeof (_a = typeof users_service_1.UsersService !== "undefined" && users_service_1.UsersService) === "function" ? _a : Object])
@@ -372,6 +891,8 @@ const apollo_1 = __webpack_require__(/*! @nestjs/apollo */ "@nestjs/apollo");
 const config_1 = __webpack_require__(/*! @nestjs/config */ "@nestjs/config");
 const jwt_1 = __webpack_require__(/*! @nestjs/jwt */ "@nestjs/jwt");
 const user_resolver_1 = __webpack_require__(/*! ./user.resolver */ "./apps/users/src/user.resolver.ts");
+const medicine_resolver_1 = __webpack_require__(/*! ./medicine.resolver */ "./apps/users/src/medicine.resolver.ts");
+const medicine_service_1 = __webpack_require__(/*! ./medicine.service */ "./apps/users/src/medicine.service.ts");
 let UsersModule = class UsersModule {
 };
 exports.UsersModule = UsersModule;
@@ -388,10 +909,12 @@ exports.UsersModule = UsersModule = __decorate([
         controllers: [users_controller_1.UsersController],
         providers: [
             users_service_1.UsersService,
+            medicine_service_1.MedicineService,
             config_1.ConfigService,
             jwt_1.JwtService,
             prisma_service_1.PrismaService,
             user_resolver_1.usersResolvers,
+            medicine_resolver_1.medicineResolvers
         ],
     })
 ], UsersModule);
@@ -432,14 +955,6 @@ let UsersService = class UsersService {
     }
     async register(registerDto, response) {
         const { fullName, email, password, mobileNumber, gender, birthday } = registerDto;
-        const isEmailExits = await this.prisma.user.findUnique({
-            where: {
-                email,
-            },
-        });
-        if (isEmailExits) {
-            throw new common_1.BadRequestException("User already exits with this email!");
-        }
         const isPhoneNumberExits = await this.prisma.user.findUnique({
             where: {
                 mobileNumber,
@@ -485,7 +1000,7 @@ let UsersService = class UsersService {
     async comparePassword(password, hashed) {
         return await bcrypt.compare(password, hashed);
     }
-    async getUsers() {
+    async getUsers(req) {
         return this.prisma.user.findMany();
     }
 };
