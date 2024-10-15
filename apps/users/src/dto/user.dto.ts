@@ -1,5 +1,24 @@
 import { InputType, Field } from "@nestjs/graphql";
 import { IsEmail, IsNotEmpty, IsString, MinLength } from "class-validator";
+import { Scalar } from "@nestjs/graphql";
+import { GraphQLUpload } from "graphql-upload";
+
+@Scalar("Upload")
+export class Upload {
+  description = "Upload files";
+
+  parseValue(value) {
+    return GraphQLUpload.parseValue(value);
+  }
+
+  serialize(value) {
+    return GraphQLUpload.serialize(value);
+  }
+
+  parseLiteral(ast) {
+    return GraphQLUpload.parseLiteral(ast, ast.value);
+  }
+}
 
 @InputType()
 export class RegisterDto {
@@ -57,9 +76,8 @@ export class LoginDto {
   password: string;
 }
 
-
 @InputType()
-export class MedicineDto{
+export class MedicineDto {
   @Field()
   @IsNotEmpty()
   @IsString()
@@ -86,9 +104,8 @@ export class MedicineDto{
   doseTime: string;
 }
 
-
 @InputType()
-export class MedicineSettingDto{
+export class MedicineSettingDto {
   @Field()
   @IsNotEmpty()
   @IsString()
@@ -123,4 +140,38 @@ export class MedicineSettingDto{
   @IsNotEmpty()
   @IsString()
   medicineReminderRemindToLeft: string;
+}
+
+@InputType()
+export class AppointmentDto {
+  @Field()
+  @IsNotEmpty()
+  @IsString()
+  date: string;
+
+  @Field()
+  @IsNotEmpty()
+  @IsString()
+  time: string;
+
+  @Field()
+  @IsNotEmpty()
+  @IsString()
+  doctorName: string;
+
+  @Field()
+  @IsNotEmpty()
+  @IsString()
+  location: string;
+
+  @Field()
+  @IsNotEmpty()
+  @IsString()
+  setReminder: string;
+}
+
+@InputType()
+export class PrescriptionDto {
+  @Field(() => Upload, { description: "Input for the slider image files." })
+  filePath: Upload;
 }

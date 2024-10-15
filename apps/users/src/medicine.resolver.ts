@@ -1,11 +1,13 @@
 import { Args, Context, Mutation, Resolver, Query } from "@nestjs/graphql";
 import { BadRequestException, UseFilters, UseGuards } from '@nestjs/common';
 import { LoginResponse, MedicineResponse, RegisterResponse } from "./types/user.type";
-import { RegisterDto, LoginDto, MedicineDto, MedicineSettingDto } from "./dto/user.dto";
+import { RegisterDto, LoginDto, MedicineDto, MedicineSettingDto, AppointmentDto, PrescriptionDto } from "./dto/user.dto";
 import { Response } from "express";
 import { MedicineDetails } from "./entities/user.entity";
 import { AuthGuard } from './guards/auth.guards';
 import { MedicineService } from "./medicine.service";
+
+// import { FileUpload, GraphQLUpload } from 'graphql-upload';
 
 
 @Resolver("MedicineDetails")
@@ -51,8 +53,6 @@ export class medicineResolvers {
     @Context() context: { res: Response }
   ): Promise<MedicineResponse> {
     try {
-
-
         if(!medicineSettingDto.InstrucTion && !medicineSettingDto.MedicineTakeEachDay && !medicineSettingDto.medicineReminderCurrentStock && !medicineSettingDto.medicineReminderRemindToLeft && !medicineSettingDto.medicineReminderTotalReq && !medicineSettingDto.treatmentDurationEndTime && !medicineSettingDto.treatmentDurationStartTime){
             throw new BadRequestException("Please fill the all fields");
         } 
@@ -77,4 +77,63 @@ export class medicineResolvers {
   }
 
 
+  @Mutation(() => MedicineResponse)
+  @UseGuards(AuthGuard)
+  async appointment(
+    @Args("appointmentInput") appointmentDto: AppointmentDto,
+    @Context() context: { res: Response }
+  ): Promise<MedicineResponse> {
+    try {
+        if(!appointmentDto.date && !appointmentDto.doctorName && !appointmentDto.location && !appointmentDto.setReminder && !appointmentDto.time ){
+            throw new BadRequestException("Please fill the all fields");
+        } 
+
+        this.medicineService.setAppointment(appointmentDto, context)
+
+        const message = "Appointment successfully processed"; // Change this to whatever logic you implement
+
+      return {
+        message,
+        error: null,
+      };
+    } catch (error) {
+      return {
+        message: "An error occurred while processing Appointment",
+        error: {
+          code: "MEDICINE_PROCESSING_ERROR",
+          message: error.message || "Unknown error",
+        },
+      };
+    }
+  }
+
+
+  @Mutation(() => MedicineResponse)
+  @UseGuards(AuthGuard)
+  async prescription(
+    @Args("prescriptionInput") prescriptionDto: PrescriptionDto,
+    @Context() context: { res: Response }
+  ): Promise<MedicineResponse> {
+    try {
+      //   if(!prescriptionDto.date && !prescriptionDto.doctorName && !prescriptionDto.location && !prescriptionDto.setReminder && !prescriptionDto.time ){
+      //       throw new BadRequestException("Please fill the all fields");
+      //   } 
+      this.medicineService.fileSaveDB(prescriptionDto)
+
+      const message = "Prescription successfully processed."; // Change this to whatever logic you implement
+
+      return {
+        message,
+        error: null,
+      };
+    } catch (error) {
+      return {
+        message: "An error occurred while processing Appointment",
+        error: {
+          code: "MEDICINE_PROCESSING_ERROR",
+          message: error.message || "Unknown error",
+        },
+      };
+    }
+  }
 }

@@ -4,6 +4,7 @@ COPY package*.json ./
 COPY prisma ./prisma/
 RUN yarn install
 RUN yarn add bcrypt
+
 COPY . .
 RUN npm run build
 FROM node:alpine as production

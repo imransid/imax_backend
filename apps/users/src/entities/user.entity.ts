@@ -1,4 +1,5 @@
 import { ObjectType, Field, Directive } from "@nestjs/graphql";
+import { pathFinderMiddleware } from "middleware/pathFinderMiddleware";
 
 @ObjectType()
 @Directive('@key(fields: "id")')
@@ -10,7 +11,7 @@ export class User {
   fullName: string;
 
   @Field()
-  mobileNumber: string; 
+  mobileNumber: string;
 
   @Field()
   password: string;
@@ -28,8 +29,6 @@ export class User {
   medicines?: MedicineDetails[];
 }
 
-
-
 @ObjectType()
 @Directive('@key(fields: "id")')
 export class MedicineDetails {
@@ -40,10 +39,10 @@ export class MedicineDetails {
   user: User;
 
   @Field()
-  userID: number;  // Foreign key to associate with User
+  userID: number; // Foreign key to associate with User
 
   @Field()
-  medicineName : string;
+  medicineName: string;
 
   @Field()
   medicineStatus: string;
@@ -58,7 +57,7 @@ export class MedicineDetails {
   doseQuantity: string;
 
   @Field()
-  doseTime : string;
+  doseTime: string;
 
   @Field(() => [MedicineDetailsExtraSetting], { nullable: true })
   MedicineDetailsExtraSetting?: MedicineDetailsExtraSetting[];
@@ -74,7 +73,7 @@ export class MedicineDetailsExtraSetting {
   MedicineDetails: MedicineDetails;
 
   @Field()
-  medicineDetailsId: number;  // Foreign key to associate with User
+  medicineDetailsId: number; // Foreign key to associate with User
 
   @Field()
   InstrucTion: string;
@@ -103,8 +102,6 @@ export class MedicineDetailsExtraSetting {
   @Field(() => [Prescription], { nullable: true })
   prescription?: Prescription[];
 }
-
-
 
 @ObjectType()
 @Directive('@key(fields: "id")')
@@ -137,7 +134,11 @@ export class Prescription {
   @Field()
   id: number;
 
-  @Field()
+  @Field({
+    description: "Logo Image",
+    middleware: [pathFinderMiddleware],
+    nullable: true,
+  })
   filePath: string;
 
   @Field()

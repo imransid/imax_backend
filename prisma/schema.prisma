@@ -63,7 +63,8 @@ model Appointment {
   setReminder String
 
   // Back relation from MedicineDetailsExtraSetting (no foreign key here)
-  medicineDetailsExtra MedicineDetailsExtraSetting?
+  medicineDetailsExtraId Int?
+  medicineDetailsExtra   MedicineDetailsExtraSetting?
 }
 
 model Prescription {
@@ -71,5 +72,6 @@ model Prescription {
   filePath String
 
   // Back relation from MedicineDetailsExtraSetting (no foreign key here)
-  medicineDetailsExtra MedicineDetailsExtraSetting?
+  medicineDetailsExtraId Int?
+  medicineDetailsExtra   MedicineDetailsExtraSetting?
 }

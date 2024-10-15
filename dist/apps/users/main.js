@@ -19,9 +19,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.MedicineSettingDto = exports.MedicineDto = exports.LoginDto = exports.RegisterDto = void 0;
+exports.PrescriptionDto = exports.AppointmentDto = exports.MedicineSettingDto = exports.MedicineDto = exports.LoginDto = exports.RegisterDto = exports.Upload = void 0;
 const graphql_1 = __webpack_require__(/*! @nestjs/graphql */ "@nestjs/graphql");
 const class_validator_1 = __webpack_require__(/*! class-validator */ "class-validator");
+const graphql_2 = __webpack_require__(/*! @nestjs/graphql */ "@nestjs/graphql");
+const graphql_upload_1 = __webpack_require__(/*! graphql-upload */ "graphql-upload");
+let Upload = class Upload {
+    constructor() {
+        this.description = "Upload files";
+    }
+    parseValue(value) {
+        return graphql_upload_1.GraphQLUpload.parseValue(value);
+    }
+    serialize(value) {
+        return graphql_upload_1.GraphQLUpload.serialize(value);
+    }
+    parseLiteral(ast) {
+        return graphql_upload_1.GraphQLUpload.parseLiteral(ast, ast.value);
+    }
+};
+exports.Upload = Upload;
+exports.Upload = Upload = __decorate([
+    (0, graphql_2.Scalar)("Upload")
+], Upload);
 let RegisterDto = class RegisterDto {
 };
 exports.RegisterDto = RegisterDto;
@@ -176,6 +196,52 @@ __decorate([
 exports.MedicineSettingDto = MedicineSettingDto = __decorate([
     (0, graphql_1.InputType)()
 ], MedicineSettingDto);
+let AppointmentDto = class AppointmentDto {
+};
+exports.AppointmentDto = AppointmentDto;
+__decorate([
+    (0, graphql_1.Field)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], AppointmentDto.prototype, "date", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], AppointmentDto.prototype, "time", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], AppointmentDto.prototype, "doctorName", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], AppointmentDto.prototype, "location", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], AppointmentDto.prototype, "setReminder", void 0);
+exports.AppointmentDto = AppointmentDto = __decorate([
+    (0, graphql_1.InputType)()
+], AppointmentDto);
+let PrescriptionDto = class PrescriptionDto {
+};
+exports.PrescriptionDto = PrescriptionDto;
+__decorate([
+    (0, graphql_1.Field)(() => Upload, { description: "Input for the slider image files." }),
+    __metadata("design:type", Upload)
+], PrescriptionDto.prototype, "filePath", void 0);
+exports.PrescriptionDto = PrescriptionDto = __decorate([
+    (0, graphql_1.InputType)()
+], PrescriptionDto);
 
 
 /***/ }),
@@ -199,6 +265,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Prescription = exports.Appointment = exports.MedicineDetailsExtraSetting = exports.MedicineDetails = exports.User = void 0;
 const graphql_1 = __webpack_require__(/*! @nestjs/graphql */ "@nestjs/graphql");
+const pathFinderMiddleware_1 = __webpack_require__(/*! middleware/pathFinderMiddleware */ "./middleware/pathFinderMiddleware.ts");
 let User = class User {
 };
 exports.User = User;
@@ -383,7 +450,11 @@ __decorate([
     __metadata("design:type", Number)
 ], Prescription.prototype, "id", void 0);
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)({
+        description: "Logo Image",
+        middleware: [pathFinderMiddleware_1.pathFinderMiddleware],
+        nullable: true,
+    }),
     __metadata("design:type", String)
 ], Prescription.prototype, "filePath", void 0);
 __decorate([
@@ -494,7 +565,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var _a, _b, _c, _d, _e;
+var _a, _b, _c, _d, _e, _f, _g, _h, _j;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.medicineResolvers = void 0;
 const graphql_1 = __webpack_require__(/*! @nestjs/graphql */ "@nestjs/graphql");
@@ -551,6 +622,47 @@ let medicineResolvers = class medicineResolvers {
             };
         }
     }
+    async appointment(appointmentDto, context) {
+        try {
+            if (!appointmentDto.date && !appointmentDto.doctorName && !appointmentDto.location && !appointmentDto.setReminder && !appointmentDto.time) {
+                throw new common_1.BadRequestException("Please fill the all fields");
+            }
+            this.medicineService.setAppointment(appointmentDto, context);
+            const message = "Appointment successfully processed";
+            return {
+                message,
+                error: null,
+            };
+        }
+        catch (error) {
+            return {
+                message: "An error occurred while processing Appointment",
+                error: {
+                    code: "MEDICINE_PROCESSING_ERROR",
+                    message: error.message || "Unknown error",
+                },
+            };
+        }
+    }
+    async prescription(prescriptionDto, context) {
+        try {
+            this.medicineService.fileSaveDB(prescriptionDto);
+            const message = "Prescription successfully processed.";
+            return {
+                message,
+                error: null,
+            };
+        }
+        catch (error) {
+            return {
+                message: "An error occurred while processing Appointment",
+                error: {
+                    code: "MEDICINE_PROCESSING_ERROR",
+                    message: error.message || "Unknown error",
+                },
+            };
+        }
+    }
 };
 exports.medicineResolvers = medicineResolvers;
 __decorate([
@@ -571,6 +683,24 @@ __decorate([
     __metadata("design:paramtypes", [typeof (_d = typeof user_dto_1.MedicineSettingDto !== "undefined" && user_dto_1.MedicineSettingDto) === "function" ? _d : Object, Object]),
     __metadata("design:returntype", typeof (_e = typeof Promise !== "undefined" && Promise) === "function" ? _e : Object)
 ], medicineResolvers.prototype, "medicineDetailsSetting", null);
+__decorate([
+    (0, graphql_1.Mutation)(() => user_type_1.MedicineResponse),
+    (0, common_1.UseGuards)(auth_guards_1.AuthGuard),
+    __param(0, (0, graphql_1.Args)("appointmentInput")),
+    __param(1, (0, graphql_1.Context)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_f = typeof user_dto_1.AppointmentDto !== "undefined" && user_dto_1.AppointmentDto) === "function" ? _f : Object, Object]),
+    __metadata("design:returntype", typeof (_g = typeof Promise !== "undefined" && Promise) === "function" ? _g : Object)
+], medicineResolvers.prototype, "appointment", null);
+__decorate([
+    (0, graphql_1.Mutation)(() => user_type_1.MedicineResponse),
+    (0, common_1.UseGuards)(auth_guards_1.AuthGuard),
+    __param(0, (0, graphql_1.Args)("prescriptionInput")),
+    __param(1, (0, graphql_1.Context)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_h = typeof user_dto_1.PrescriptionDto !== "undefined" && user_dto_1.PrescriptionDto) === "function" ? _h : Object, Object]),
+    __metadata("design:returntype", typeof (_j = typeof Promise !== "undefined" && Promise) === "function" ? _j : Object)
+], medicineResolvers.prototype, "prescription", null);
 exports.medicineResolvers = medicineResolvers = __decorate([
     (0, graphql_1.Resolver)("MedicineDetails"),
     __metadata("design:paramtypes", [typeof (_a = typeof medicine_service_1.MedicineService !== "undefined" && medicine_service_1.MedicineService) === "function" ? _a : Object])
@@ -607,19 +737,25 @@ let MedicineService = class MedicineService {
         this.jwtService = jwtService;
         this.prisma = prisma;
         this.configureService = configureService;
+        this.uploadDir = process.env.UPLOAD_DIR;
     }
     async setMedicineDetails(medicineDto, context) {
         try {
-            const { medicineName, medicineStatus, doseTime, doseQuantity, takeStatus } = medicineDto;
+            const { medicineName, medicineStatus, doseTime, doseQuantity, takeStatus, } = medicineDto;
             const accessTokenWith = context.req.headers.authorization;
-            const accessToken = accessTokenWith.split(' ')[1];
+            const accessToken = accessTokenWith.split(" ")[1];
             const decoded = this.jwtService.verify(accessToken, {
-                secret: this.configureService.get('ACCESS_TOKEN_EXPIRE'),
+                secret: this.configureService.get("ACCESS_TOKEN_EXPIRE"),
             });
             await this.prisma.medicineDetails.create({
                 data: {
-                    medicineName, medicineStatus, doseTime, doseQuantity, takeStatus, userID: decoded.id,
-                }
+                    medicineName,
+                    medicineStatus,
+                    doseTime,
+                    doseQuantity,
+                    takeStatus,
+                    userID: decoded.id,
+                },
             });
         }
         catch (err) {
@@ -629,7 +765,7 @@ let MedicineService = class MedicineService {
     }
     async setMedicineInputSetting(medicineSettingDto, context) {
         try {
-            const { InstrucTion, medicineReminderCurrentStock, medicineReminderTotalReq, medicineReminderRemindToLeft, treatmentDurationEndTime, treatmentDurationStartTime, MedicineTakeEachDay } = medicineSettingDto;
+            const { InstrucTion, medicineReminderCurrentStock, medicineReminderTotalReq, medicineReminderRemindToLeft, treatmentDurationEndTime, treatmentDurationStartTime, MedicineTakeEachDay, } = medicineSettingDto;
             const medicineDetailsId = context.req.body.variables.medicineDetailsID;
             await this.prisma.medicineDetailsExtraSetting.create({
                 data: {
@@ -640,14 +776,57 @@ let MedicineService = class MedicineService {
                     treatmentDurationEndTime,
                     treatmentDurationStartTime,
                     MedicineTakeEachDay,
-                    medicineDetailsId: parseInt(medicineDetailsId)
-                }
+                    medicineDetailsId: parseInt(medicineDetailsId),
+                },
             });
         }
         catch (err) {
             console.error("Error saving medicine details: setting", err);
             throw new common_1.BadRequestException("Failed to save medicine details. setting");
         }
+    }
+    async setAppointment(appointmentDto, context) {
+        try {
+            const { date, doctorName, time, location, setReminder } = appointmentDto;
+            const medicineDetailsExtraId = context.req.body.variables.medicineDetailsExtraId;
+            await this.prisma.appointment.create({
+                data: {
+                    date,
+                    doctorName,
+                    time,
+                    location,
+                    setReminder,
+                    medicineDetailsExtraId,
+                },
+            });
+        }
+        catch (err) {
+            console.error("Error saving Appointment", err);
+            throw new common_1.BadRequestException("Failed to save Appointment");
+        }
+    }
+    async setPrescription(appointmentDto, context) {
+        try {
+            const { date, doctorName, time, location, setReminder } = appointmentDto;
+            const medicineDetailsExtraId = context.req.body.variables.medicineDetailsExtraId;
+            await this.prisma.appointment.create({
+                data: {
+                    date,
+                    doctorName,
+                    time,
+                    location,
+                    setReminder,
+                    medicineDetailsExtraId,
+                },
+            });
+        }
+        catch (err) {
+            console.error("Error saving Appointment", err);
+            throw new common_1.BadRequestException("Failed to save Appointment");
+        }
+    }
+    async fileSaveDB(prescriptionDto) {
+        console.log("prescriptionDto", prescriptionDto);
     }
 };
 exports.MedicineService = MedicineService;
@@ -893,16 +1072,28 @@ const jwt_1 = __webpack_require__(/*! @nestjs/jwt */ "@nestjs/jwt");
 const user_resolver_1 = __webpack_require__(/*! ./user.resolver */ "./apps/users/src/user.resolver.ts");
 const medicine_resolver_1 = __webpack_require__(/*! ./medicine.resolver */ "./apps/users/src/medicine.resolver.ts");
 const medicine_service_1 = __webpack_require__(/*! ./medicine.service */ "./apps/users/src/medicine.service.ts");
+const path_1 = __webpack_require__(/*! path */ "path");
+const serve_static_1 = __webpack_require__(/*! @nestjs/serve-static */ "@nestjs/serve-static");
+const user_dto_1 = __webpack_require__(/*! ./dto/user.dto */ "./apps/users/src/dto/user.dto.ts");
 let UsersModule = class UsersModule {
 };
 exports.UsersModule = UsersModule;
 exports.UsersModule = UsersModule = __decorate([
     (0, common_1.Module)({
         imports: [
+            user_dto_1.Upload,
             graphql_1.GraphQLModule.forRoot({
                 driver: apollo_1.ApolloFederationDriver,
                 autoSchemaFile: {
                     federation: 2,
+                },
+            }),
+            serve_static_1.ServeStaticModule.forRoot({
+                rootPath: (0, path_1.join)(process.cwd(), "uploads"),
+                serveRoot: "/uploads",
+                serveStaticOptions: {
+                    extensions: ["jpg", "jpeg", "png", "gif"],
+                    index: false,
                 },
             }),
         ],
@@ -914,7 +1105,7 @@ exports.UsersModule = UsersModule = __decorate([
             jwt_1.JwtService,
             prisma_service_1.PrismaService,
             user_resolver_1.usersResolvers,
-            medicine_resolver_1.medicineResolvers
+            medicine_resolver_1.medicineResolvers,
         ],
     })
 ], UsersModule);
@@ -1042,6 +1233,24 @@ exports.TokenSender = TokenSender;
 
 /***/ }),
 
+/***/ "./middleware/pathFinderMiddleware.ts":
+/*!********************************************!*\
+  !*** ./middleware/pathFinderMiddleware.ts ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.pathFinderMiddleware = void 0;
+const pathFinderMiddleware = async (ctx, next) => {
+    let filePath = await next();
+    return `${process.env.BASE_URL}/${filePath}`;
+};
+exports.pathFinderMiddleware = pathFinderMiddleware;
+
+
+/***/ }),
+
 /***/ "./prisma/prisma.service.ts":
 /*!**********************************!*\
   !*** ./prisma/prisma.service.ts ***!
@@ -1132,6 +1341,16 @@ module.exports = require("@nestjs/jwt");
 
 /***/ }),
 
+/***/ "@nestjs/serve-static":
+/*!***************************************!*\
+  !*** external "@nestjs/serve-static" ***!
+  \***************************************/
+/***/ ((module) => {
+
+module.exports = require("@nestjs/serve-static");
+
+/***/ }),
+
 /***/ "@prisma/client":
 /*!*********************************!*\
   !*** external "@prisma/client" ***!
@@ -1159,6 +1378,26 @@ module.exports = require("bcrypt");
 /***/ ((module) => {
 
 module.exports = require("class-validator");
+
+/***/ }),
+
+/***/ "graphql-upload":
+/*!*********************************!*\
+  !*** external "graphql-upload" ***!
+  \*********************************/
+/***/ ((module) => {
+
+module.exports = require("graphql-upload");
+
+/***/ }),
+
+/***/ "path":
+/*!***********************!*\
+  !*** external "path" ***!
+  \***********************/
+/***/ ((module) => {
+
+module.exports = require("path");
 
 /***/ })
 
@@ -1200,8 +1439,10 @@ var exports = __webpack_exports__;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core_1 = __webpack_require__(/*! @nestjs/core */ "@nestjs/core");
 const users_module_1 = __webpack_require__(/*! ./users.module */ "./apps/users/src/users.module.ts");
+const graphql_upload_1 = __webpack_require__(/*! graphql-upload */ "graphql-upload");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(users_module_1.UsersModule);
+    app.use((0, graphql_upload_1.graphqlUploadExpress)({ maxFileSize: 100000000, maxFiles: 10 }));
     await app.listen(4001);
 }
 bootstrap();
