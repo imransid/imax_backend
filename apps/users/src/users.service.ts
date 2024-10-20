@@ -20,6 +20,8 @@ export class UsersService {
     const { fullName, email, password, mobileNumber, gender, birthday } =
       registerDto;
 
+      console.log('registerDto', registerDto)
+
     const isPhoneNumberExits = await this.prisma.user.findUnique({
       where: {
         mobileNumber,
@@ -45,7 +47,13 @@ export class UsersService {
       },
     });
 
-    return { user, response };
+
+    console.log('user', user)
+
+    
+    return {
+      message: 'User registered successfully',
+    };
   }
 
   async login(
@@ -61,9 +69,9 @@ export class UsersService {
     console.log('user', user)
 
     if(user && await this.comparePassword(password, user.password)){
-      
       const tokeSender = new TokenSender(this.configureService, this.jwtService);
       return tokeSender.sendToken(user);
+
     }else{
       return {
         user: null,

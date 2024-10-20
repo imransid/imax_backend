@@ -583,16 +583,17 @@ let medicineResolvers = class medicineResolvers {
             if (!medicineDto.medicineName && !medicineDto.medicineStatus && !medicineDto.doseTime && !medicineDto.takeStatus && !medicineDto.doseQuantity) {
                 throw new common_1.BadRequestException("Please fill the all fields");
             }
-            this.medicineService.setMedicineDetails(medicineDto, context);
-            const message = "Medicine details successfully processed";
+            const { message, medicineId } = await this.medicineService.setMedicineDetails(medicineDto, context);
             return {
                 message,
+                medicineId,
                 error: null,
             };
         }
         catch (error) {
             return {
                 message: "An error occurred while processing medicine details",
+                medicineId: "",
                 error: {
                     code: "MEDICINE_PROCESSING_ERROR",
                     message: error.message || "Unknown error",
@@ -627,6 +628,7 @@ let medicineResolvers = class medicineResolvers {
             if (!appointmentDto.date && !appointmentDto.doctorName && !appointmentDto.location && !appointmentDto.setReminder && !appointmentDto.time) {
                 throw new common_1.BadRequestException("Please fill the all fields");
             }
+            console.log("okok");
             this.medicineService.setAppointment(appointmentDto, context);
             const message = "Appointment successfully processed";
             return {
@@ -685,7 +687,6 @@ __decorate([
 ], medicineResolvers.prototype, "medicineDetailsSetting", null);
 __decorate([
     (0, graphql_1.Mutation)(() => user_type_1.MedicineResponse),
-    (0, common_1.UseGuards)(auth_guards_1.AuthGuard),
     __param(0, (0, graphql_1.Args)("appointmentInput")),
     __param(1, (0, graphql_1.Context)()),
     __metadata("design:type", Function),
@@ -747,7 +748,7 @@ let MedicineService = class MedicineService {
             const decoded = this.jwtService.verify(accessToken, {
                 secret: this.configureService.get("ACCESS_TOKEN_EXPIRE"),
             });
-            await this.prisma.medicineDetails.create({
+            let response = await this.prisma.medicineDetails.create({
                 data: {
                     medicineName,
                     medicineStatus,
@@ -757,6 +758,10 @@ let MedicineService = class MedicineService {
                     userID: decoded.id,
                 },
             });
+            return {
+                message: "Medicine details saved successfully",
+                medicineId: response.id,
+            };
         }
         catch (err) {
             console.error("Error saving medicine details:", err);
@@ -766,6 +771,7 @@ let MedicineService = class MedicineService {
     async setMedicineInputSetting(medicineSettingDto, context) {
         try {
             const { InstrucTion, medicineReminderCurrentStock, medicineReminderTotalReq, medicineReminderRemindToLeft, treatmentDurationEndTime, treatmentDurationStartTime, MedicineTakeEachDay, } = medicineSettingDto;
+            console.log('medicineSettingDto', medicineSettingDto);
             const medicineDetailsId = context.req.body.variables.medicineDetailsID;
             await this.prisma.medicineDetailsExtraSetting.create({
                 data: {
@@ -788,7 +794,8 @@ let MedicineService = class MedicineService {
     async setAppointment(appointmentDto, context) {
         try {
             const { date, doctorName, time, location, setReminder } = appointmentDto;
-            const medicineDetailsExtraId = context.req.body.variables.medicineDetailsExtraId;
+            console.log('appointmentDto', appointmentDto, context.req.body);
+            const medicineDetailsExtraId = context.req.body.variables.medicineDetailsExtraId !== null ? parseInt(context.req.body.variables.medicineDetailsExtraId) : 0;
             await this.prisma.appointment.create({
                 data: {
                     date,
@@ -854,7 +861,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var _a, _b;
+var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.LoginResponse = exports.MedicineResponse = exports.RegisterResponse = exports._ErrorType = void 0;
 const graphql_1 = __webpack_require__(/*! @nestjs/graphql */ "@nestjs/graphql");
@@ -877,9 +884,9 @@ let RegisterResponse = class RegisterResponse {
 };
 exports.RegisterResponse = RegisterResponse;
 __decorate([
-    (0, graphql_1.Field)(() => user_entity_1.User, { nullable: true }),
-    __metadata("design:type", Object)
-], RegisterResponse.prototype, "user", void 0);
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], RegisterResponse.prototype, "message", void 0);
 __decorate([
     (0, graphql_1.Field)(() => _ErrorType, { nullable: true }),
     __metadata("design:type", _ErrorType)
@@ -895,6 +902,10 @@ __decorate([
     __metadata("design:type", String)
 ], MedicineResponse.prototype, "message", void 0);
 __decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], MedicineResponse.prototype, "medicineId", void 0);
+__decorate([
     (0, graphql_1.Field)(() => _ErrorType, { nullable: true }),
     __metadata("design:type", _ErrorType)
 ], MedicineResponse.prototype, "error", void 0);
@@ -906,7 +917,7 @@ let LoginResponse = class LoginResponse {
 exports.LoginResponse = LoginResponse;
 __decorate([
     (0, graphql_1.Field)(() => user_entity_1.User),
-    __metadata("design:type", typeof (_b = typeof user_entity_1.User !== "undefined" && user_entity_1.User) === "function" ? _b : Object)
+    __metadata("design:type", typeof (_a = typeof user_entity_1.User !== "undefined" && user_entity_1.User) === "function" ? _a : Object)
 ], LoginResponse.prototype, "user", void 0);
 __decorate([
     (0, graphql_1.Field)(),
@@ -961,12 +972,11 @@ let usersResolvers = class usersResolvers {
             throw new common_1.BadRequestException("Please fill the all fields");
         }
         const user = await this.userService.register(registerDto, context.res);
-        return { user };
+        return user;
     }
     async login(mobileNumber, password) {
         try {
             let res = await this.userService.login(mobileNumber, password);
-            console.log("res", res);
             return res;
         }
         catch (error) {
@@ -974,7 +984,7 @@ let usersResolvers = class usersResolvers {
             throw new common_1.BadRequestException(error.message);
         }
     }
-    async async(context) {
+    async getUser(context) {
         return await this.userService.getUsers(context.req);
     }
 };
@@ -1002,7 +1012,7 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
-], usersResolvers.prototype, "async", null);
+], usersResolvers.prototype, "getUser", null);
 exports.usersResolvers = usersResolvers = __decorate([
     (0, graphql_1.Resolver)("User"),
     __metadata("design:paramtypes", [typeof (_a = typeof users_service_1.UsersService !== "undefined" && users_service_1.UsersService) === "function" ? _a : Object])
@@ -1146,6 +1156,7 @@ let UsersService = class UsersService {
     }
     async register(registerDto, response) {
         const { fullName, email, password, mobileNumber, gender, birthday } = registerDto;
+        console.log('registerDto', registerDto);
         const isPhoneNumberExits = await this.prisma.user.findUnique({
             where: {
                 mobileNumber,
@@ -1165,7 +1176,10 @@ let UsersService = class UsersService {
                 birthday,
             },
         });
-        return { user, response };
+        console.log('user', user);
+        return {
+            message: 'User registered successfully',
+        };
     }
     async login(mobileNumber, password) {
         const user = await this.prisma.user.findUnique({

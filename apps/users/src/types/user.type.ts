@@ -12,8 +12,8 @@ export class _ErrorType {
 
 @ObjectType()
 export class RegisterResponse {
-  @Field(() => User, { nullable: true })
-  user?: User | any;
+  @Field()
+  message: string;
 
   @Field(() => _ErrorType, { nullable: true })
   error?: _ErrorType;
@@ -25,6 +25,9 @@ export class MedicineResponse {
 
   @Field()
   message: string;
+
+  @Field()
+  medicineId?: string;
 
   @Field(() => _ErrorType, { nullable: true })
   error?: _ErrorType;

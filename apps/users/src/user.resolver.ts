@@ -20,8 +20,9 @@ export class usersResolvers {
     if (!registerDto.fullName || !registerDto.email || !registerDto.password) {
       throw new BadRequestException("Please fill the all fields");
     }
+
     const user = await this.userService.register(registerDto, context.res);
-    return { user };
+    return  user ;
   }
 
   @Mutation(() => LoginResponse)
@@ -30,10 +31,8 @@ export class usersResolvers {
     @Args('password') password: string,
   ): Promise<LoginResponse> {
     try {
+
       let res = await this.userService.login(mobileNumber, password);
-
-      console.log("res", res)
-
       return res
     } catch (error) {
       console.error("Login error:", error);
@@ -43,7 +42,7 @@ export class usersResolvers {
 
   @Query(() => [User])
   @UseGuards(AuthGuard)
-  async async (@Context() context: { req: Request }) {
+   async getUser (@Context() context: { req: Request }) {
     return await this.userService.getUsers(context.req);
   }
 }

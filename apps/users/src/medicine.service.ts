@@ -38,7 +38,7 @@ export class MedicineService {
         secret: this.configureService.get<string>("ACCESS_TOKEN_EXPIRE"),
       });
 
-      await this.prisma.medicineDetails.create({
+      let response = await this.prisma.medicineDetails.create({
         data: {
           medicineName,
           medicineStatus,
@@ -48,6 +48,12 @@ export class MedicineService {
           userID: decoded.id,
         },
       });
+
+      return {
+        message: "Medicine details saved successfully",
+        medicineId: response.id,  // ID of the saved record
+      };
+
     } catch (err) {
       console.error("Error saving medicine details:", err);
       throw new BadRequestException("Failed to save medicine details.");
@@ -68,6 +74,9 @@ export class MedicineService {
         treatmentDurationStartTime,
         MedicineTakeEachDay,
       } = medicineSettingDto;
+
+
+      console.log('medicineSettingDto', medicineSettingDto)
 
       const medicineDetailsId = context.req.body.variables.medicineDetailsID;
 
@@ -93,8 +102,11 @@ export class MedicineService {
     try {
       const { date, doctorName, time, location, setReminder } = appointmentDto;
 
+
+      console.log('appointmentDto', appointmentDto, context.req.body)
+
       const medicineDetailsExtraId =
-        context.req.body.variables.medicineDetailsExtraId;
+        context.req.body.variables.medicineDetailsExtraId !== null ? parseInt(context.req.body.variables.medicineDetailsExtraId) : 0 ;
 
       await this.prisma.appointment.create({
         data: {
@@ -104,7 +116,6 @@ export class MedicineService {
           location,
           setReminder,
           medicineDetailsExtraId,
-          // medicineDetailsId: parseInt(medicineDetailsId)
         },
       });
     } catch (err) {
