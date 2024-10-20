@@ -586,7 +586,7 @@ let medicineResolvers = class medicineResolvers {
             const { message, medicineId } = await this.medicineService.setMedicineDetails(medicineDto, context);
             return {
                 message,
-                medicineId,
+                medicineId: medicineId.toString(),
                 error: null,
             };
         }
@@ -610,6 +610,7 @@ let medicineResolvers = class medicineResolvers {
             const message = "Medicine details successfully processed";
             return {
                 message,
+                medicineId: '',
                 error: null,
             };
         }
@@ -628,10 +629,12 @@ let medicineResolvers = class medicineResolvers {
             if (!appointmentDto.date && !appointmentDto.doctorName && !appointmentDto.location && !appointmentDto.setReminder && !appointmentDto.time) {
                 throw new common_1.BadRequestException("Please fill the all fields");
             }
+            console.log("okok");
             this.medicineService.setAppointment(appointmentDto, context);
             const message = "Appointment successfully processed";
             return {
                 message,
+                medicineId: '',
                 error: null,
             };
         }
@@ -651,6 +654,7 @@ let medicineResolvers = class medicineResolvers {
             const message = "Prescription successfully processed.";
             return {
                 message,
+                medicineId: '',
                 error: null,
             };
         }
