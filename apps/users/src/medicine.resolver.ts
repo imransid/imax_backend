@@ -89,8 +89,6 @@ export class medicineResolvers {
             throw new BadRequestException("Please fill the all fields");
         } 
 
-        console.log("okok")
-
         this.medicineService.setAppointment(appointmentDto, context)
 
         const message = "Appointment successfully processed"; // Change this to whatever logic you implement

@@ -628,7 +628,6 @@ let medicineResolvers = class medicineResolvers {
             if (!appointmentDto.date && !appointmentDto.doctorName && !appointmentDto.location && !appointmentDto.setReminder && !appointmentDto.time) {
                 throw new common_1.BadRequestException("Please fill the all fields");
             }
-            console.log("okok");
             this.medicineService.setAppointment(appointmentDto, context);
             const message = "Appointment successfully processed";
             return {

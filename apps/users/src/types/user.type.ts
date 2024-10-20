@@ -27,7 +27,7 @@ export class MedicineResponse {
   message: string;
 
   @Field()
-  medicineId?: string;
+  medicineId?: string | number;
 
   @Field(() => _ErrorType, { nullable: true })
   error?: _ErrorType;
