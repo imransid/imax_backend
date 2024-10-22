@@ -23,7 +23,7 @@ docker exec 9ec74e2ea767 npx prisma migrate deploydocker
 migrate
 
 
-docker exec a6de8d0f5f8f npx prisma db push --force-reset
+docker exec e09da54d99a4 npx prisma db push --force-reset
 
 
 

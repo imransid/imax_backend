@@ -1,11 +1,13 @@
 import { Args, Context, Mutation, Resolver, Query } from "@nestjs/graphql";
 import { BadRequestException, UseFilters, UseGuards } from '@nestjs/common';
-import { LoginResponse, MedicineResponse, RegisterResponse } from "./types/user.type";
+import { LoginResponse, MedicineCreateResponse, MedicineResponse, RegisterResponse } from "./types/user.type";
 import { RegisterDto, LoginDto, MedicineDto, MedicineSettingDto, AppointmentDto, PrescriptionDto } from "./dto/user.dto";
 import { Response } from "express";
 import { MedicineDetails } from "./entities/user.entity";
 import { AuthGuard } from './guards/auth.guards';
 import { MedicineService } from "./medicine.service";
+import { Medicine } from "./entities/medicine.entity";
+import { CreateMedicineDto } from "./dto/create-medicine.dto";
 
 // import { FileUpload, GraphQLUpload } from 'graphql-upload';
 
@@ -143,10 +145,41 @@ export class medicineResolvers {
   }
 
 
-  // @Query(() => MedicineResponse)
-  // @UseGuards(AuthGuard)
-  // async async (@Context() context: { req: Request }) {
-  //   return await this.userService.getUsers(context.req);
-  // }
+  @Mutation(() => MedicineCreateResponse) // Specify the return type
+  @UseGuards(AuthGuard)
+  async createMedicines(
+    @Args('medicines', { type: () => [CreateMedicineDto] }) medicines: CreateMedicineDto[], 
+    @Context() context: { req: any } 
+  ): Promise<MedicineCreateResponse> {
+    const response = new MedicineCreateResponse();
+    const userId = context.req.user.id; 
+
+    try {
+      const createdMedicines = await this.medicineService.createMedicines(medicines, parseInt(userId));
+  
+      response.message = 'Medicines created successfully';
+      response.medicine = createdMedicines;
+      return response; // Ensure we return the response in the success case
+    } catch (error) {
+      response.message = 'Failed to create medicine entries';
+      response.error = {
+        message: error.message || 'An unknown error occurred', // Provide a message for the error
+        code: error.code ?? 'INTERNAL_SERVER_ERROR' // Optionally provide a code
+      };
+    }
+  }
+
+  // get medicine
+
+  @Query(() => [Medicine]) // Return type
+  @UseGuards(AuthGuard)
+  async getMedicinesByUser( @Context() context: { req: any } ): Promise<Medicine[]> {
+    const userId = context.req.user.id; 
+    try {
+      return await this.medicineService.findMedicinesByUserId(parseInt(userId));
+    } catch (error) {
+      throw new Error(error.message); // Handle errors as needed
+    }
+  }
 
 }
