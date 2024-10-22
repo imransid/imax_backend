@@ -2,6 +2,72 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./apps/users/src/dto/update-profile.dto.ts":
+/*!**************************************************!*\
+  !*** ./apps/users/src/dto/update-profile.dto.ts ***!
+  \**************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.UpdateProfileDto = void 0;
+const graphql_1 = __webpack_require__(/*! @nestjs/graphql */ "@nestjs/graphql");
+const class_validator_1 = __webpack_require__(/*! class-validator */ "class-validator");
+let UpdateProfileDto = class UpdateProfileDto {
+};
+exports.UpdateProfileDto = UpdateProfileDto;
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, graphql_1.Field)({ nullable: true }),
+    __metadata("design:type", String)
+], UpdateProfileDto.prototype, "fullName", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsEmail)(),
+    (0, graphql_1.Field)({ nullable: true }),
+    __metadata("design:type", String)
+], UpdateProfileDto.prototype, "email", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsMobilePhone)(),
+    (0, graphql_1.Field)({ nullable: true }),
+    __metadata("design:type", String)
+], UpdateProfileDto.prototype, "mobileNumber", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, graphql_1.Field)({ nullable: true }),
+    __metadata("design:type", String)
+], UpdateProfileDto.prototype, "gender", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, graphql_1.Field)({ nullable: true }),
+    __metadata("design:type", String)
+], UpdateProfileDto.prototype, "birthday", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, graphql_1.Field)({ nullable: true }),
+    __metadata("design:type", String)
+], UpdateProfileDto.prototype, "password", void 0);
+exports.UpdateProfileDto = UpdateProfileDto = __decorate([
+    (0, graphql_1.InputType)()
+], UpdateProfileDto);
+
+
+/***/ }),
+
 /***/ "./apps/users/src/dto/user.dto.ts":
 /*!****************************************!*\
   !*** ./apps/users/src/dto/user.dto.ts ***!
@@ -514,24 +580,19 @@ let AuthGuard = class AuthGuard {
             if (!decoded) {
                 throw new common_1.UnauthorizedException('Invalid access token');
             }
-            await this.updateAccessToken(req, decoded);
+            await this.updateAccessToken(req, decoded, accessToken);
         }
         return true;
     }
-    async updateAccessToken(req, decoded) {
+    async updateAccessToken(req, decoded, token) {
         try {
             const user = await this.prismaService.user.findUnique({
                 where: {
                     id: decoded.id,
                 },
             });
-            const accessToken = this.jwtService.sign({
-                id: user.id,
-            }, {
-                secret: this.configService.get('ACCESS_TOKEN_SECRET'),
-                expiresIn: '50m',
-            });
-            req.accesstoken = accessToken;
+            console.log('accessToken', token);
+            req.accesstoken = token;
             req.user = user;
         }
         catch (error) { }
@@ -956,7 +1017,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var _a, _b, _c, _d;
+var _a, _b, _c, _d, _e, _f;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.usersResolvers = void 0;
 const graphql_1 = __webpack_require__(/*! @nestjs/graphql */ "@nestjs/graphql");
@@ -966,6 +1027,7 @@ const user_type_1 = __webpack_require__(/*! ./types/user.type */ "./apps/users/s
 const user_dto_1 = __webpack_require__(/*! ./dto/user.dto */ "./apps/users/src/dto/user.dto.ts");
 const user_entity_1 = __webpack_require__(/*! ./entities/user.entity */ "./apps/users/src/entities/user.entity.ts");
 const auth_guards_1 = __webpack_require__(/*! ./guards/auth.guards */ "./apps/users/src/guards/auth.guards.ts");
+const update_profile_dto_1 = __webpack_require__(/*! ./dto/update-profile.dto */ "./apps/users/src/dto/update-profile.dto.ts");
 let usersResolvers = class usersResolvers {
     constructor(userService) {
         this.userService = userService;
@@ -986,6 +1048,10 @@ let usersResolvers = class usersResolvers {
             console.error("Login error:", error);
             throw new common_1.BadRequestException(error.message);
         }
+    }
+    async updateProfile(updateProfileDto, context) {
+        const userId = context.req.user.id;
+        return this.userService.updateProfile(userId, updateProfileDto);
     }
     async getUser(context) {
         return await this.userService.getUsers(context.req);
@@ -1008,6 +1074,15 @@ __decorate([
     __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", typeof (_d = typeof Promise !== "undefined" && Promise) === "function" ? _d : Object)
 ], usersResolvers.prototype, "login", null);
+__decorate([
+    (0, graphql_1.Mutation)(() => user_entity_1.User),
+    (0, common_1.UseGuards)(auth_guards_1.AuthGuard),
+    __param(0, (0, graphql_1.Args)("updateProfileInput")),
+    __param(1, (0, graphql_1.Context)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_e = typeof update_profile_dto_1.UpdateProfileDto !== "undefined" && update_profile_dto_1.UpdateProfileDto) === "function" ? _e : Object, Object]),
+    __metadata("design:returntype", typeof (_f = typeof Promise !== "undefined" && Promise) === "function" ? _f : Object)
+], usersResolvers.prototype, "updateProfile", null);
 __decorate([
     (0, graphql_1.Query)(() => [user_entity_1.User]),
     (0, common_1.UseGuards)(auth_guards_1.AuthGuard),
@@ -1159,7 +1234,6 @@ let UsersService = class UsersService {
     }
     async register(registerDto, response) {
         const { fullName, email, password, mobileNumber, gender, birthday } = registerDto;
-        console.log('registerDto', registerDto);
         const isPhoneNumberExits = await this.prisma.user.findUnique({
             where: {
                 mobileNumber,
@@ -1179,7 +1253,6 @@ let UsersService = class UsersService {
                 birthday,
             },
         });
-        console.log('user', user);
         return {
             message: 'User registered successfully',
         };
@@ -1190,7 +1263,6 @@ let UsersService = class UsersService {
                 mobileNumber,
             },
         });
-        console.log('user', user);
         if (user && await this.comparePassword(password, user.password)) {
             const tokeSender = new sendToken_1.TokenSender(this.configureService, this.jwtService);
             return tokeSender.sendToken(user);
@@ -1210,6 +1282,21 @@ let UsersService = class UsersService {
     }
     async getUsers(req) {
         return this.prisma.user.findMany();
+    }
+    async updateProfile(userId, updateProfileDto) {
+        const { password, ...updateData } = updateProfileDto;
+        if (password) {
+            const hashedPassword = await bcrypt.hash(password, 10);
+            Object.assign(updateData, { password: hashedPassword });
+        }
+        const user = await this.prisma.user.update({
+            where: { id: parseInt(userId, 10) },
+            data: updateData,
+        });
+        if (!user) {
+            throw new common_1.BadRequestException('User not found');
+        }
+        return user;
     }
 };
 exports.UsersService = UsersService;

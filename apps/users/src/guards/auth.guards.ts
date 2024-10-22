@@ -40,13 +40,13 @@ export class AuthGuard implements CanActivate {
         throw new UnauthorizedException('Invalid access token');
       }
 
-      await this.updateAccessToken(req, decoded);
+      await this.updateAccessToken(req, decoded, accessToken);
     }
 
     return true;
   }
 
-  private async updateAccessToken(req: any, decoded : any): Promise<void> {
+  private async updateAccessToken(req: any, decoded : any, token: any): Promise<void> {
     try {
 
       const user = await this.prismaService.user.findUnique({
@@ -55,17 +55,12 @@ export class AuthGuard implements CanActivate {
         },
       });
 
-      const accessToken = this.jwtService.sign(
-        {
-          id: user.id,
-        },
-        {
-          secret: this.configService.get<string>('ACCESS_TOKEN_SECRET'),
-          expiresIn: '50m',
-        },
-      );
 
-      req.accesstoken = accessToken;
+  
+
+      console.log('accessToken', token)
+
+      req.accesstoken = token;
       req.user = user;
     } catch (error) {}
   }

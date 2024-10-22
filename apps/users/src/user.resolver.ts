@@ -6,6 +6,7 @@ import { RegisterDto, LoginDto } from "./dto/user.dto";
 import { Response } from "express";
 import { User } from "./entities/user.entity";
 import { AuthGuard } from './guards/auth.guards';
+import { UpdateProfileDto } from "./dto/update-profile.dto";
 
 
 @Resolver("User")
@@ -39,6 +40,18 @@ export class usersResolvers {
       throw new BadRequestException(error.message); // or another appropriate exception
     }
   }
+
+
+  @Mutation(() => User)
+  @UseGuards(AuthGuard)  // Protect this mutation
+  async updateProfile(
+    @Args("updateProfileInput") updateProfileDto: UpdateProfileDto,
+    @Context() context: { req: any }
+  ): Promise<User> {
+    const userId = context.req.user.id;
+    return this.userService.updateProfile(userId, updateProfileDto);
+  }
+
 
   @Query(() => [User])
   @UseGuards(AuthGuard)

@@ -7,6 +7,8 @@ import { Response } from "express";
 
 import * as bcrypt from "bcrypt";
 import { TokenSender } from "./utils/sendToken";
+import { UpdateProfileDto } from "./dto/update-profile.dto";
+import { User } from "./entities/user.entity";
 
 @Injectable()
 export class UsersService {
@@ -19,8 +21,6 @@ export class UsersService {
   async register(registerDto: RegisterDto, response: Response) {
     const { fullName, email, password, mobileNumber, gender, birthday } =
       registerDto;
-
-      console.log('registerDto', registerDto)
 
     const isPhoneNumberExits = await this.prisma.user.findUnique({
       where: {
@@ -47,9 +47,6 @@ export class UsersService {
       },
     });
 
-
-    console.log('user', user)
-
     
     return {
       message: 'User registered successfully',
@@ -65,8 +62,6 @@ export class UsersService {
         mobileNumber,
       },
     });
-
-    console.log('user', user)
 
     if(user && await this.comparePassword(password, user.password)){
       const tokeSender = new TokenSender(this.configureService, this.jwtService);
@@ -91,4 +86,29 @@ export class UsersService {
   async getUsers(req : any) {
     return this.prisma.user.findMany();
   }
+
+
+  async updateProfile(userId: string, updateProfileDto: UpdateProfileDto): Promise<User> {
+    const { password, ...updateData } = updateProfileDto;
+
+    // If password is provided, hash it
+    if (password) {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      Object.assign(updateData, { password: hashedPassword }); // Add hashed password to updateData
+    }
+
+
+    const user = await this.prisma.user.update({
+      where: { id: parseInt(userId, 10) },
+      data: updateData,
+    });
+
+    if (!user) {
+      throw new BadRequestException('User not found');
+    }
+
+    return user;
+  }
+
+
 }
