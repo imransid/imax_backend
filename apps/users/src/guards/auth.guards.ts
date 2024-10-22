@@ -55,11 +55,6 @@ export class AuthGuard implements CanActivate {
         },
       });
 
-
-  
-
-      console.log('accessToken', token)
-
       req.accesstoken = token;
       req.user = user;
     } catch (error) {}

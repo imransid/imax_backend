@@ -9,6 +9,8 @@ import {
 } from "./dto/user.dto";
 import { PrismaService } from "../../../prisma/prisma.service";
 import { Response } from "express";
+import { Medicine } from "./entities/medicine.entity";
+import { CreateMedicineDto } from "./dto/create-medicine.dto";
 
 @Injectable()
 export class MedicineService {
@@ -202,4 +204,49 @@ export class MedicineService {
     // battalionData.mapFilePath = battalionInputData.mapFilePath;
     // return battalionData;
   }
+
+
+
+ 
+
+  async createMedicines(medicines: CreateMedicineDto[], userId: number): Promise<string> {
+    // Prepare data for batch insertion
+    const medicineData : any = medicines.map(medicine => ({
+      medicineLocalId: medicine.medicineLocalId,
+      medicineName: medicine.medicineName ,
+      medicineStatus: medicine.medicineStatus,
+      takeStatus: medicine.takeStatus,
+      doseQuantity: medicine.doseQuantity,
+      doseTime: medicine.doseTime,
+      strengthMed: medicine.strengthMed,
+      unitMed: medicine.unitMed,
+      typeMed: medicine.typeMed,
+      medicineId: medicine.medicineId,
+      createdDate: medicine.createdDate,
+      userID: userId 
+    }));
+
+    try {
+
+      await this.prisma.medicine.createMany({
+        data: medicineData,
+      });
+
+      // Return the medicine data directly since createMany doesn't return created entries
+      return  'Medicines created successfully';
+    } catch (error) {
+      console.error("Error creating medicines:", error);
+      throw new BadRequestException('Failed to create medicine entries.');
+    }
+  }
+
+
+  // get medicine
+  async findMedicinesByUserId(userId: number): Promise<Medicine[]> {
+    return this.prisma.medicine.findMany({
+      where: { userID: userId },
+    });
+  }
+
+
 }

@@ -8,26 +8,24 @@ datasource db {
 }
 
 model User {
-  id           Int               @id @default(autoincrement())
+  id           Int        @id @default(autoincrement())
   fullName     String
-  mobileNumber String            @unique
+  mobileNumber String     @unique
   email        String
   password     String
   gender       String
   birthday     String
-  medicines    MedicineDetails[] // One user can have many medicines
+  medicineList Medicine[]
 }
 
 model MedicineDetails {
-  id             Int    @id @default(autoincrement())
-  userID         Int // Foreign key to User
-  medicineName   String
-  medicineStatus String
-  takeStatus     String
-  doseQuantity   String
-  doseTime       String
-  user           User   @relation(fields: [userID], references: [id])
-
+  id                          Int                           @id @default(autoincrement())
+  userID                      Int // Foreign key to User
+  medicineName                String
+  medicineStatus              String
+  takeStatus                  String
+  doseQuantity                String
+  doseTime                    String
   // One-to-one relation with MedicineDetailsExtraSetting
   MedicineDetailsExtraSetting MedicineDetailsExtraSetting[]
 }
@@ -74,4 +72,21 @@ model Prescription {
   // Back relation from MedicineDetailsExtraSetting (no foreign key here)
   medicineDetailsExtraId Int?
   medicineDetailsExtra   MedicineDetailsExtraSetting?
+}
+
+model Medicine {
+  id              Int     @id @default(autoincrement())
+  medicineLocalId String  @unique // Ensure this is unique if necessary
+  medicineName    String?
+  medicineStatus  String?
+  takeStatus      String?
+  doseQuantity    String?
+  doseTime        String?
+  strengthMed     String?
+  unitMed         String?
+  typeMed         String?
+  medicineId      String?
+  createdDate     String?
+  userID          Int // Foreign key to User
+  user            User    @relation(fields: [userID], references: [id])
 }

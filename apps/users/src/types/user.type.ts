@@ -1,5 +1,6 @@
 import { Field, ObjectType } from "@nestjs/graphql";
 import { User } from "../entities/user.entity";
+import { Medicine } from "../entities/medicine.entity";
 
 @ObjectType()
 export class _ErrorType {
@@ -33,6 +34,20 @@ export class MedicineResponse {
   error?: _ErrorType;
 }
 
+
+@ObjectType()
+export class MedicineCreateResponse {
+
+  @Field()
+  message: string;
+
+  @Field()
+  medicine?: string;
+
+  @Field(() => _ErrorType, { nullable: true })
+  error?: _ErrorType;
+
+}
 
 
 
