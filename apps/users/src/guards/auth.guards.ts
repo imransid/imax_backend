@@ -24,6 +24,7 @@ export class AuthGuard implements CanActivate {
 
     const accessTokenWith = req.headers.authorization as string;
 
+
     const accessToken = accessTokenWith.split(' ')[1];
 
     if (!accessToken ) {

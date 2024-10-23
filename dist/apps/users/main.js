@@ -2,6 +2,134 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./apps/users/src/dto/create-instruction.dto.ts":
+/*!******************************************************!*\
+  !*** ./apps/users/src/dto/create-instruction.dto.ts ***!
+  \******************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.CreateMedicineAppointmentDto = exports.CreateMedicineDurationDto = exports.CreateMedicineReminderDto = exports.CreateMedicineInstructionDto = void 0;
+const graphql_1 = __webpack_require__(/*! @nestjs/graphql */ "@nestjs/graphql");
+const class_validator_1 = __webpack_require__(/*! class-validator */ "class-validator");
+let CreateMedicineInstructionDto = class CreateMedicineInstructionDto {
+};
+exports.CreateMedicineInstructionDto = CreateMedicineInstructionDto;
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], CreateMedicineInstructionDto.prototype, "instrucTion", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], CreateMedicineInstructionDto.prototype, "medicineLocalId", void 0);
+exports.CreateMedicineInstructionDto = CreateMedicineInstructionDto = __decorate([
+    (0, graphql_1.InputType)()
+], CreateMedicineInstructionDto);
+let CreateMedicineReminderDto = class CreateMedicineReminderDto {
+};
+exports.CreateMedicineReminderDto = CreateMedicineReminderDto;
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], CreateMedicineReminderDto.prototype, "medicineReminderCurrentStock", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], CreateMedicineReminderDto.prototype, "medicineReminderRemindToLeft", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], CreateMedicineReminderDto.prototype, "medicineReminderTotalReq", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], CreateMedicineReminderDto.prototype, "medicineLocalId", void 0);
+exports.CreateMedicineReminderDto = CreateMedicineReminderDto = __decorate([
+    (0, graphql_1.InputType)()
+], CreateMedicineReminderDto);
+let CreateMedicineDurationDto = class CreateMedicineDurationDto {
+};
+exports.CreateMedicineDurationDto = CreateMedicineDurationDto;
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], CreateMedicineDurationDto.prototype, "medicineTakeEachDay", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], CreateMedicineDurationDto.prototype, "treatmentDurationEndTime", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], CreateMedicineDurationDto.prototype, "treatmentDurationStartTime", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], CreateMedicineDurationDto.prototype, "medicineLocalId", void 0);
+exports.CreateMedicineDurationDto = CreateMedicineDurationDto = __decorate([
+    (0, graphql_1.InputType)()
+], CreateMedicineDurationDto);
+let CreateMedicineAppointmentDto = class CreateMedicineAppointmentDto {
+};
+exports.CreateMedicineAppointmentDto = CreateMedicineAppointmentDto;
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], CreateMedicineAppointmentDto.prototype, "date", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], CreateMedicineAppointmentDto.prototype, "doctorName", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], CreateMedicineAppointmentDto.prototype, "location", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], CreateMedicineAppointmentDto.prototype, "medicineLocalId", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], CreateMedicineAppointmentDto.prototype, "setReminder", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], CreateMedicineAppointmentDto.prototype, "time", void 0);
+exports.CreateMedicineAppointmentDto = CreateMedicineAppointmentDto = __decorate([
+    (0, graphql_1.InputType)()
+], CreateMedicineAppointmentDto);
+
+
+/***/ }),
+
 /***/ "./apps/users/src/dto/create-medicine.dto.ts":
 /*!***************************************************!*\
   !*** ./apps/users/src/dto/create-medicine.dto.ts ***!
@@ -100,6 +228,394 @@ __decorate([
 exports.CreateMedicineDto = CreateMedicineDto = __decorate([
     (0, graphql_1.InputType)()
 ], CreateMedicineDto);
+
+
+/***/ }),
+
+/***/ "./apps/users/src/dto/create-monthly.dto.ts":
+/*!**************************************************!*\
+  !*** ./apps/users/src/dto/create-monthly.dto.ts ***!
+  \**************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.CreateMedicineWeeklyListsDto = exports.CreateMedicineMonthlyListDto = exports.MedicineLocalId_Dto = void 0;
+const graphql_1 = __webpack_require__(/*! @nestjs/graphql */ "@nestjs/graphql");
+const class_validator_1 = __webpack_require__(/*! class-validator */ "class-validator");
+let MedicineLocalId_Dto = class MedicineLocalId_Dto {
+};
+exports.MedicineLocalId_Dto = MedicineLocalId_Dto;
+__decorate([
+    (0, graphql_1.Field)(() => [String]),
+    (0, class_validator_1.IsArray)(),
+    __metadata("design:type", Array)
+], MedicineLocalId_Dto.prototype, "Days", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], MedicineLocalId_Dto.prototype, "eachOfDays", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], MedicineLocalId_Dto.prototype, "medicineLocalId", void 0);
+exports.MedicineLocalId_Dto = MedicineLocalId_Dto = __decorate([
+    (0, graphql_1.InputType)()
+], MedicineLocalId_Dto);
+let CreateMedicineMonthlyListDto = class CreateMedicineMonthlyListDto {
+};
+exports.CreateMedicineMonthlyListDto = CreateMedicineMonthlyListDto;
+__decorate([
+    (0, graphql_1.Field)(() => MedicineLocalId_Dto),
+    __metadata("design:type", MedicineLocalId_Dto)
+], CreateMedicineMonthlyListDto.prototype, "medicineLocalId", void 0);
+exports.CreateMedicineMonthlyListDto = CreateMedicineMonthlyListDto = __decorate([
+    (0, graphql_1.InputType)()
+], CreateMedicineMonthlyListDto);
+let CreateMedicineWeeklyListsDto = class CreateMedicineWeeklyListsDto {
+};
+exports.CreateMedicineWeeklyListsDto = CreateMedicineWeeklyListsDto;
+__decorate([
+    (0, graphql_1.Field)(() => [CreateMedicineMonthlyListDto]),
+    __metadata("design:type", Array)
+], CreateMedicineWeeklyListsDto.prototype, "medicines", void 0);
+exports.CreateMedicineWeeklyListsDto = CreateMedicineWeeklyListsDto = __decorate([
+    (0, graphql_1.InputType)()
+], CreateMedicineWeeklyListsDto);
+
+
+/***/ }),
+
+/***/ "./apps/users/src/dto/create-weekly.dto.ts":
+/*!*************************************************!*\
+  !*** ./apps/users/src/dto/create-weekly.dto.ts ***!
+  \*************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.CreateMedicineWeeklyListsDto = exports.CreateMedicineWeeklyListDto = exports.MedicineLocalIdDto = void 0;
+const graphql_1 = __webpack_require__(/*! @nestjs/graphql */ "@nestjs/graphql");
+const class_validator_1 = __webpack_require__(/*! class-validator */ "class-validator");
+let MedicineLocalIdDto = class MedicineLocalIdDto {
+};
+exports.MedicineLocalIdDto = MedicineLocalIdDto;
+__decorate([
+    (0, graphql_1.Field)(() => [String]),
+    (0, class_validator_1.IsArray)(),
+    __metadata("design:type", Array)
+], MedicineLocalIdDto.prototype, "weeklyTime", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], MedicineLocalIdDto.prototype, "timeInterval", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], MedicineLocalIdDto.prototype, "medicineLocalId", void 0);
+exports.MedicineLocalIdDto = MedicineLocalIdDto = __decorate([
+    (0, graphql_1.InputType)()
+], MedicineLocalIdDto);
+let CreateMedicineWeeklyListDto = class CreateMedicineWeeklyListDto {
+};
+exports.CreateMedicineWeeklyListDto = CreateMedicineWeeklyListDto;
+__decorate([
+    (0, graphql_1.Field)(() => MedicineLocalIdDto),
+    __metadata("design:type", MedicineLocalIdDto)
+], CreateMedicineWeeklyListDto.prototype, "medicineLocalId", void 0);
+exports.CreateMedicineWeeklyListDto = CreateMedicineWeeklyListDto = __decorate([
+    (0, graphql_1.InputType)()
+], CreateMedicineWeeklyListDto);
+let CreateMedicineWeeklyListsDto = class CreateMedicineWeeklyListsDto {
+};
+exports.CreateMedicineWeeklyListsDto = CreateMedicineWeeklyListsDto;
+__decorate([
+    (0, graphql_1.Field)(() => [CreateMedicineWeeklyListDto]),
+    __metadata("design:type", Array)
+], CreateMedicineWeeklyListsDto.prototype, "medicines", void 0);
+exports.CreateMedicineWeeklyListsDto = CreateMedicineWeeklyListsDto = __decorate([
+    (0, graphql_1.InputType)()
+], CreateMedicineWeeklyListsDto);
+
+
+/***/ }),
+
+/***/ "./apps/users/src/dto/get-Weekly.dto.ts":
+/*!**********************************************!*\
+  !*** ./apps/users/src/dto/get-Weekly.dto.ts ***!
+  \**********************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.MedicineWeeklyListsDto = exports.MedicineWeeklyListDto = exports.MedicineLocalIdWeeklyDto = void 0;
+const graphql_1 = __webpack_require__(/*! @nestjs/graphql */ "@nestjs/graphql");
+const class_validator_1 = __webpack_require__(/*! class-validator */ "class-validator");
+let MedicineLocalIdWeeklyDto = class MedicineLocalIdWeeklyDto {
+};
+exports.MedicineLocalIdWeeklyDto = MedicineLocalIdWeeklyDto;
+__decorate([
+    (0, graphql_1.Field)(() => [String]),
+    (0, class_validator_1.IsArray)(),
+    __metadata("design:type", Array)
+], MedicineLocalIdWeeklyDto.prototype, "weeklyTime", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], MedicineLocalIdWeeklyDto.prototype, "timeInterval", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], MedicineLocalIdWeeklyDto.prototype, "medicineLocalId", void 0);
+exports.MedicineLocalIdWeeklyDto = MedicineLocalIdWeeklyDto = __decorate([
+    (0, graphql_1.ObjectType)()
+], MedicineLocalIdWeeklyDto);
+let MedicineWeeklyListDto = class MedicineWeeklyListDto {
+};
+exports.MedicineWeeklyListDto = MedicineWeeklyListDto;
+__decorate([
+    (0, graphql_1.Field)(() => MedicineLocalIdWeeklyDto),
+    __metadata("design:type", MedicineLocalIdWeeklyDto)
+], MedicineWeeklyListDto.prototype, "medicineLocalId", void 0);
+exports.MedicineWeeklyListDto = MedicineWeeklyListDto = __decorate([
+    (0, graphql_1.ObjectType)()
+], MedicineWeeklyListDto);
+let MedicineWeeklyListsDto = class MedicineWeeklyListsDto {
+};
+exports.MedicineWeeklyListsDto = MedicineWeeklyListsDto;
+__decorate([
+    (0, graphql_1.Field)(() => [MedicineWeeklyListDto]),
+    __metadata("design:type", Array)
+], MedicineWeeklyListsDto.prototype, "medicines", void 0);
+exports.MedicineWeeklyListsDto = MedicineWeeklyListsDto = __decorate([
+    (0, graphql_1.ObjectType)()
+], MedicineWeeklyListsDto);
+
+
+/***/ }),
+
+/***/ "./apps/users/src/dto/get-monthly.dto.ts":
+/*!***********************************************!*\
+  !*** ./apps/users/src/dto/get-monthly.dto.ts ***!
+  \***********************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.MedicineMonthlyListsDto = exports.MedicineMonthlyListDto = exports.MedicineLocalIdMonthlyDto = void 0;
+const graphql_1 = __webpack_require__(/*! @nestjs/graphql */ "@nestjs/graphql");
+const class_validator_1 = __webpack_require__(/*! class-validator */ "class-validator");
+let MedicineLocalIdMonthlyDto = class MedicineLocalIdMonthlyDto {
+};
+exports.MedicineLocalIdMonthlyDto = MedicineLocalIdMonthlyDto;
+__decorate([
+    (0, graphql_1.Field)(() => [String]),
+    (0, class_validator_1.IsArray)(),
+    __metadata("design:type", Array)
+], MedicineLocalIdMonthlyDto.prototype, "Days", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], MedicineLocalIdMonthlyDto.prototype, "eachOfDays", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], MedicineLocalIdMonthlyDto.prototype, "medicineLocalId", void 0);
+exports.MedicineLocalIdMonthlyDto = MedicineLocalIdMonthlyDto = __decorate([
+    (0, graphql_1.ObjectType)()
+], MedicineLocalIdMonthlyDto);
+let MedicineMonthlyListDto = class MedicineMonthlyListDto {
+};
+exports.MedicineMonthlyListDto = MedicineMonthlyListDto;
+__decorate([
+    (0, graphql_1.Field)(() => MedicineLocalIdMonthlyDto),
+    __metadata("design:type", MedicineLocalIdMonthlyDto)
+], MedicineMonthlyListDto.prototype, "medicineLocalId", void 0);
+exports.MedicineMonthlyListDto = MedicineMonthlyListDto = __decorate([
+    (0, graphql_1.ObjectType)()
+], MedicineMonthlyListDto);
+let MedicineMonthlyListsDto = class MedicineMonthlyListsDto {
+};
+exports.MedicineMonthlyListsDto = MedicineMonthlyListsDto;
+__decorate([
+    (0, graphql_1.Field)(() => [MedicineMonthlyListDto]),
+    __metadata("design:type", Array)
+], MedicineMonthlyListsDto.prototype, "medicines", void 0);
+exports.MedicineMonthlyListsDto = MedicineMonthlyListsDto = __decorate([
+    (0, graphql_1.ObjectType)()
+], MedicineMonthlyListsDto);
+
+
+/***/ }),
+
+/***/ "./apps/users/src/dto/get-other.dto.ts":
+/*!*********************************************!*\
+  !*** ./apps/users/src/dto/get-other.dto.ts ***!
+  \*********************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ReminderDto = exports.GetAppointmentDto = exports.DurationDto = exports.InstructionDto = void 0;
+const graphql_1 = __webpack_require__(/*! @nestjs/graphql */ "@nestjs/graphql");
+const class_validator_1 = __webpack_require__(/*! class-validator */ "class-validator");
+let InstructionDto = class InstructionDto {
+};
+exports.InstructionDto = InstructionDto;
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], InstructionDto.prototype, "instrucTion", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], InstructionDto.prototype, "medicineLocalId", void 0);
+exports.InstructionDto = InstructionDto = __decorate([
+    (0, graphql_1.ObjectType)()
+], InstructionDto);
+let DurationDto = class DurationDto {
+};
+exports.DurationDto = DurationDto;
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], DurationDto.prototype, "medicineLocalId", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], DurationDto.prototype, "medicineTakeEachDay", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], DurationDto.prototype, "treatmentDurationEndTime", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], DurationDto.prototype, "treatmentDurationStartTime", void 0);
+exports.DurationDto = DurationDto = __decorate([
+    (0, graphql_1.ObjectType)()
+], DurationDto);
+let GetAppointmentDto = class GetAppointmentDto {
+};
+exports.GetAppointmentDto = GetAppointmentDto;
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], GetAppointmentDto.prototype, "location", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], GetAppointmentDto.prototype, "medicineLocalId", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], GetAppointmentDto.prototype, "date", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], GetAppointmentDto.prototype, "doctorName", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], GetAppointmentDto.prototype, "setReminder", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], GetAppointmentDto.prototype, "time", void 0);
+exports.GetAppointmentDto = GetAppointmentDto = __decorate([
+    (0, graphql_1.ObjectType)()
+], GetAppointmentDto);
+let ReminderDto = class ReminderDto {
+};
+exports.ReminderDto = ReminderDto;
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], ReminderDto.prototype, "medicineReminderTotalReq", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], ReminderDto.prototype, "medicineReminderRemindToLeft", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], ReminderDto.prototype, "medicineReminderCurrentStock", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], ReminderDto.prototype, "medicineLocalId", void 0);
+exports.ReminderDto = ReminderDto = __decorate([
+    (0, graphql_1.ObjectType)()
+], ReminderDto);
 
 
 /***/ }),
@@ -805,7 +1321,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.medicineResolvers = void 0;
 const graphql_1 = __webpack_require__(/*! @nestjs/graphql */ "@nestjs/graphql");
@@ -816,6 +1332,12 @@ const auth_guards_1 = __webpack_require__(/*! ./guards/auth.guards */ "./apps/us
 const medicine_service_1 = __webpack_require__(/*! ./medicine.service */ "./apps/users/src/medicine.service.ts");
 const medicine_entity_1 = __webpack_require__(/*! ./entities/medicine.entity */ "./apps/users/src/entities/medicine.entity.ts");
 const create_medicine_dto_1 = __webpack_require__(/*! ./dto/create-medicine.dto */ "./apps/users/src/dto/create-medicine.dto.ts");
+const create_weekly_dto_1 = __webpack_require__(/*! ./dto/create-weekly.dto */ "./apps/users/src/dto/create-weekly.dto.ts");
+const create_monthly_dto_1 = __webpack_require__(/*! ./dto/create-monthly.dto */ "./apps/users/src/dto/create-monthly.dto.ts");
+const create_instruction_dto_1 = __webpack_require__(/*! ./dto/create-instruction.dto */ "./apps/users/src/dto/create-instruction.dto.ts");
+const get_monthly_dto_1 = __webpack_require__(/*! ./dto/get-monthly.dto */ "./apps/users/src/dto/get-monthly.dto.ts");
+const get_Weekly_dto_1 = __webpack_require__(/*! ./dto/get-Weekly.dto */ "./apps/users/src/dto/get-Weekly.dto.ts");
+const get_other_dto_1 = __webpack_require__(/*! ./dto/get-other.dto */ "./apps/users/src/dto/get-other.dto.ts");
 let medicineResolvers = class medicineResolvers {
     constructor(medicineService) {
         this.medicineService = medicineService;
@@ -936,6 +1458,162 @@ let medicineResolvers = class medicineResolvers {
             throw new Error(error.message);
         }
     }
+    async createWeeklyMedicines(medicines, context) {
+        const response = new user_type_1.MedicineCreateResponse();
+        const userId = context.req.user.id;
+        try {
+            const createdMedicines = await this.medicineService.createMedicinesWeekly(medicines, parseInt(userId));
+            response.message = 'Medicines created successfully';
+            response.medicine = createdMedicines;
+            return response;
+        }
+        catch (error) {
+            response.message = 'Failed to create medicine entries';
+            response.error = {
+                message: error.message || 'An unknown error occurred',
+                code: error.code ?? 'INTERNAL_SERVER_ERROR'
+            };
+        }
+    }
+    async getWeeklyMedicinesByUser(context) {
+        const userId = context.req.user.id;
+        try {
+            return await this.medicineService.findMedicinesWeeklyByUserId(parseInt(userId));
+        }
+        catch (error) {
+            throw new Error(error.message);
+        }
+    }
+    async createMonthlyMedicines(medicines, context) {
+        const response = new user_type_1.MedicineCreateResponse();
+        const userId = context.req.user.id;
+        try {
+            const createdMedicines = await this.medicineService.createMedicinesMonthly(medicines, parseInt(userId));
+            response.message = 'Medicines created successfully';
+            response.medicine = createdMedicines;
+            return response;
+        }
+        catch (error) {
+            response.message = 'Failed to create medicine entries';
+            response.error = {
+                message: error.message || 'An unknown error occurred',
+                code: error.code ?? 'INTERNAL_SERVER_ERROR'
+            };
+        }
+    }
+    async getMonthlyMedicinesByUser(context) {
+        const userId = context.req.user.id;
+        try {
+            return await this.medicineService.findMedicinesMonthlyByUserId(parseInt(userId));
+        }
+        catch (error) {
+            throw new Error(error.message);
+        }
+    }
+    async createInstructionMedicines(medicines, context) {
+        const response = new user_type_1.MedicineCreateResponse();
+        const userId = context.req.user.id;
+        try {
+            const createdMedicines = await this.medicineService.createMedicinesInstruction(medicines, parseInt(userId));
+            response.message = 'Medicines Instruction created successfully';
+            response.medicine = createdMedicines;
+            return response;
+        }
+        catch (error) {
+            response.message = 'Failed to create medicine entries';
+            response.error = {
+                message: error.message || 'An unknown error occurred',
+                code: error.code ?? 'INTERNAL_SERVER_ERROR'
+            };
+        }
+    }
+    async getInstructionMedicinesByUser(context) {
+        const userId = context.req.user.id;
+        try {
+            return await this.medicineService.findMedicinesInstructionByUserId(parseInt(userId));
+        }
+        catch (error) {
+            throw new Error(error.message);
+        }
+    }
+    async createReminderMedicines(medicines, context) {
+        const response = new user_type_1.MedicineCreateResponse();
+        const userId = context.req.user.id;
+        try {
+            const createdMedicines = await this.medicineService.createMedicinesReminder(medicines, parseInt(userId));
+            response.message = 'Medicines Reminder created successfully';
+            response.medicine = createdMedicines;
+            return response;
+        }
+        catch (error) {
+            response.message = 'Failed to create medicine entries';
+            response.error = {
+                message: error.message || 'An unknown error occurred',
+                code: error.code ?? 'INTERNAL_SERVER_ERROR'
+            };
+        }
+    }
+    async getReminderMedicinesByUser(context) {
+        const userId = context.req.user.id;
+        try {
+            return await this.medicineService.findMedicinesReminderByUserId(parseInt(userId));
+        }
+        catch (error) {
+            throw new Error(error.message);
+        }
+    }
+    async createDurationMedicines(medicines, context) {
+        const response = new user_type_1.MedicineCreateResponse();
+        const userId = context.req.user.id;
+        try {
+            const createdMedicines = await this.medicineService.createMedicinesDuration(medicines, parseInt(userId));
+            response.message = 'Medicines Reminder created successfully';
+            response.medicine = createdMedicines;
+            return response;
+        }
+        catch (error) {
+            response.message = 'Failed to create medicine entries';
+            response.error = {
+                message: error.message || 'An unknown error occurred',
+                code: error.code ?? 'INTERNAL_SERVER_ERROR'
+            };
+        }
+    }
+    async getDurationMedicinesByUser(context) {
+        const userId = context.req.user.id;
+        try {
+            return await this.medicineService.findMedicinesDurationByUserId(parseInt(userId));
+        }
+        catch (error) {
+            throw new Error(error.message);
+        }
+    }
+    async createAppointmentMedicines(medicines, context) {
+        const response = new user_type_1.MedicineCreateResponse();
+        const userId = context.req.user.id;
+        try {
+            const createdMedicines = await this.medicineService.createMedicinesReminder(medicines, parseInt(userId));
+            response.message = 'Medicines Reminder created successfully';
+            response.medicine = createdMedicines;
+            return response;
+        }
+        catch (error) {
+            response.message = 'Failed to create medicine entries';
+            response.error = {
+                message: error.message || 'An unknown error occurred',
+                code: error.code ?? 'INTERNAL_SERVER_ERROR'
+            };
+        }
+    }
+    async getAppointmentMedicinesByUser(context) {
+        const userId = context.req.user.id;
+        try {
+            return await this.medicineService.findMedicinesAppointmentByUserId(parseInt(userId));
+        }
+        catch (error) {
+            throw new Error(error.message);
+        }
+    }
 };
 exports.medicineResolvers = medicineResolvers;
 __decorate([
@@ -990,6 +1668,108 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", typeof (_l = typeof Promise !== "undefined" && Promise) === "function" ? _l : Object)
 ], medicineResolvers.prototype, "getMedicinesByUser", null);
+__decorate([
+    (0, graphql_1.Mutation)(() => user_type_1.MedicineCreateResponse),
+    (0, common_1.UseGuards)(auth_guards_1.AuthGuard),
+    __param(0, (0, graphql_1.Args)('medicines', { type: () => [create_weekly_dto_1.CreateMedicineWeeklyListDto] })),
+    __param(1, (0, graphql_1.Context)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Array, Object]),
+    __metadata("design:returntype", typeof (_m = typeof Promise !== "undefined" && Promise) === "function" ? _m : Object)
+], medicineResolvers.prototype, "createWeeklyMedicines", null);
+__decorate([
+    (0, graphql_1.Query)(() => [get_Weekly_dto_1.MedicineWeeklyListDto]),
+    (0, common_1.UseGuards)(auth_guards_1.AuthGuard),
+    __param(0, (0, graphql_1.Context)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", typeof (_o = typeof Promise !== "undefined" && Promise) === "function" ? _o : Object)
+], medicineResolvers.prototype, "getWeeklyMedicinesByUser", null);
+__decorate([
+    (0, graphql_1.Mutation)(() => user_type_1.MedicineCreateResponse),
+    (0, common_1.UseGuards)(auth_guards_1.AuthGuard),
+    __param(0, (0, graphql_1.Args)('medicines', { type: () => [create_monthly_dto_1.CreateMedicineMonthlyListDto] })),
+    __param(1, (0, graphql_1.Context)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Array, Object]),
+    __metadata("design:returntype", typeof (_p = typeof Promise !== "undefined" && Promise) === "function" ? _p : Object)
+], medicineResolvers.prototype, "createMonthlyMedicines", null);
+__decorate([
+    (0, graphql_1.Query)(() => [get_monthly_dto_1.MedicineMonthlyListDto]),
+    (0, common_1.UseGuards)(auth_guards_1.AuthGuard),
+    __param(0, (0, graphql_1.Context)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", typeof (_q = typeof Promise !== "undefined" && Promise) === "function" ? _q : Object)
+], medicineResolvers.prototype, "getMonthlyMedicinesByUser", null);
+__decorate([
+    (0, graphql_1.Mutation)(() => user_type_1.MedicineCreateResponse),
+    (0, common_1.UseGuards)(auth_guards_1.AuthGuard),
+    __param(0, (0, graphql_1.Args)('medicines', { type: () => [create_instruction_dto_1.CreateMedicineInstructionDto] })),
+    __param(1, (0, graphql_1.Context)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Array, Object]),
+    __metadata("design:returntype", typeof (_r = typeof Promise !== "undefined" && Promise) === "function" ? _r : Object)
+], medicineResolvers.prototype, "createInstructionMedicines", null);
+__decorate([
+    (0, graphql_1.Query)(() => [get_other_dto_1.InstructionDto]),
+    (0, common_1.UseGuards)(auth_guards_1.AuthGuard),
+    __param(0, (0, graphql_1.Context)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", typeof (_s = typeof Promise !== "undefined" && Promise) === "function" ? _s : Object)
+], medicineResolvers.prototype, "getInstructionMedicinesByUser", null);
+__decorate([
+    (0, graphql_1.Mutation)(() => user_type_1.MedicineCreateResponse),
+    (0, common_1.UseGuards)(auth_guards_1.AuthGuard),
+    __param(0, (0, graphql_1.Args)('medicines', { type: () => [create_instruction_dto_1.CreateMedicineReminderDto] })),
+    __param(1, (0, graphql_1.Context)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Array, Object]),
+    __metadata("design:returntype", typeof (_t = typeof Promise !== "undefined" && Promise) === "function" ? _t : Object)
+], medicineResolvers.prototype, "createReminderMedicines", null);
+__decorate([
+    (0, graphql_1.Query)(() => [get_other_dto_1.ReminderDto]),
+    (0, common_1.UseGuards)(auth_guards_1.AuthGuard),
+    __param(0, (0, graphql_1.Context)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", typeof (_u = typeof Promise !== "undefined" && Promise) === "function" ? _u : Object)
+], medicineResolvers.prototype, "getReminderMedicinesByUser", null);
+__decorate([
+    (0, graphql_1.Mutation)(() => user_type_1.MedicineCreateResponse),
+    (0, common_1.UseGuards)(auth_guards_1.AuthGuard),
+    __param(0, (0, graphql_1.Args)('medicines', { type: () => [create_instruction_dto_1.CreateMedicineDurationDto] })),
+    __param(1, (0, graphql_1.Context)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Array, Object]),
+    __metadata("design:returntype", typeof (_v = typeof Promise !== "undefined" && Promise) === "function" ? _v : Object)
+], medicineResolvers.prototype, "createDurationMedicines", null);
+__decorate([
+    (0, graphql_1.Query)(() => [get_other_dto_1.DurationDto]),
+    (0, common_1.UseGuards)(auth_guards_1.AuthGuard),
+    __param(0, (0, graphql_1.Context)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", typeof (_w = typeof Promise !== "undefined" && Promise) === "function" ? _w : Object)
+], medicineResolvers.prototype, "getDurationMedicinesByUser", null);
+__decorate([
+    (0, graphql_1.Mutation)(() => user_type_1.MedicineCreateResponse),
+    (0, common_1.UseGuards)(auth_guards_1.AuthGuard),
+    __param(0, (0, graphql_1.Args)('medicines', { type: () => [create_instruction_dto_1.CreateMedicineAppointmentDto] })),
+    __param(1, (0, graphql_1.Context)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Array, Object]),
+    __metadata("design:returntype", typeof (_x = typeof Promise !== "undefined" && Promise) === "function" ? _x : Object)
+], medicineResolvers.prototype, "createAppointmentMedicines", null);
+__decorate([
+    (0, graphql_1.Query)(() => [get_other_dto_1.GetAppointmentDto]),
+    (0, common_1.UseGuards)(auth_guards_1.AuthGuard),
+    __param(0, (0, graphql_1.Context)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", typeof (_y = typeof Promise !== "undefined" && Promise) === "function" ? _y : Object)
+], medicineResolvers.prototype, "getAppointmentMedicinesByUser", null);
 exports.medicineResolvers = medicineResolvers = __decorate([
     (0, graphql_1.Resolver)("MedicineDetails"),
     __metadata("design:paramtypes", [typeof (_a = typeof medicine_service_1.MedicineService !== "undefined" && medicine_service_1.MedicineService) === "function" ? _a : Object])
@@ -1059,7 +1839,6 @@ let MedicineService = class MedicineService {
     async setMedicineInputSetting(medicineSettingDto, context) {
         try {
             const { InstrucTion, medicineReminderCurrentStock, medicineReminderTotalReq, medicineReminderRemindToLeft, treatmentDurationEndTime, treatmentDurationStartTime, MedicineTakeEachDay, } = medicineSettingDto;
-            console.log('medicineSettingDto', medicineSettingDto);
             const medicineDetailsId = context.req.body.variables.medicineDetailsID;
             await this.prisma.medicineDetailsExtraSetting.create({
                 data: {
@@ -1152,6 +1931,174 @@ let MedicineService = class MedicineService {
     async findMedicinesByUserId(userId) {
         return this.prisma.medicine.findMany({
             where: { userID: userId },
+        });
+    }
+    async createMedicinesWeekly(medicines, userId) {
+        const medicineData = medicines.map(medicine => ({
+            weeklyTime: medicine.medicineLocalId.weeklyTime,
+            medicineLocalId: medicine.medicineLocalId.medicineLocalId,
+            timeInterval: parseInt(medicine.medicineLocalId.timeInterval),
+            userId: userId
+        }));
+        try {
+            await this.prisma.medicineWeekly.createMany({
+                data: medicineData,
+            });
+            return 'Medicines Weekly created successfully';
+        }
+        catch (error) {
+            console.error("Error creating medicines:", error);
+            throw new common_1.BadRequestException('Failed to create medicine entries.');
+        }
+    }
+    async findMedicinesWeeklyByUserId(userId) {
+        const weeklyMedicines = await this.prisma.medicineWeekly.findMany({
+            where: { userId: userId },
+            select: {
+                weeklyTime: true,
+                timeInterval: true,
+                medicineLocalId: true
+            }
+        });
+        const formattedMedicines = weeklyMedicines.map(medicine => ({
+            medicineLocalId: {
+                weeklyTime: medicine.weeklyTime,
+                timeInterval: medicine.timeInterval.toString(),
+                medicineLocalId: medicine.medicineLocalId
+            }
+        }));
+        return formattedMedicines;
+    }
+    async createMedicinesMonthly(medicines, userId) {
+        const medicineData = medicines.map(medicine => ({
+            Days: medicine.medicineLocalId.Days,
+            medicineLocalId: medicine.medicineLocalId.medicineLocalId,
+            eachOfDays: medicine.medicineLocalId.eachOfDays,
+            userId: userId
+        }));
+        try {
+            await this.prisma.medicMonthly.createMany({
+                data: medicineData,
+            });
+            return 'Medicines Weekly created successfully';
+        }
+        catch (error) {
+            console.error("Error creating medicines:", error);
+            throw new common_1.BadRequestException('Failed to create medicine entries.');
+        }
+    }
+    async findMedicinesMonthlyByUserId(userId) {
+        const weeklyMedicines = await this.prisma.medicMonthly.findMany({
+            where: { userId: userId },
+            select: {
+                Days: true,
+                eachOfDays: true,
+                medicineLocalId: true
+            }
+        });
+        const formattedMedicines = weeklyMedicines.map(medicine => ({
+            medicineLocalId: {
+                Days: medicine.Days,
+                eachOfDays: medicine.eachOfDays,
+                medicineLocalId: medicine.medicineLocalId
+            }
+        }));
+        return formattedMedicines;
+    }
+    async createMedicinesInstruction(medicines, userId) {
+        const medicineData = medicines.map(medicine => ({
+            medicineLocalId: medicine.medicineLocalId,
+            instrucTion: medicine.instrucTion,
+            userId: userId
+        }));
+        try {
+            await this.prisma.medicInstruction.createMany({
+                data: medicineData,
+            });
+            return 'Medicines Instruction created successfully';
+        }
+        catch (error) {
+            console.error("Error creating medicines:", error);
+            throw new common_1.BadRequestException('Failed to create medicine entries.');
+        }
+    }
+    async findMedicinesInstructionByUserId(userId) {
+        return this.prisma.medicInstruction.findMany({
+            where: { userId: userId },
+        });
+    }
+    async createMedicinesReminder(medicines, userId) {
+        const medicineData = medicines.map(medicine => ({
+            medicineLocalId: medicine.medicineLocalId,
+            medicineReminderCurrentStock: medicine.medicineReminderCurrentStock,
+            medicineReminderRemindToLeft: medicine.medicineReminderRemindToLeft,
+            medicineReminderTotalReq: medicine.medicineReminderTotalReq,
+            userId: userId
+        }));
+        try {
+            await this.prisma.medicReminder.createMany({
+                data: medicineData,
+            });
+            return 'Medicines Reminder created successfully';
+        }
+        catch (error) {
+            console.error("Error creating medicines:", error);
+            throw new common_1.BadRequestException('Failed to create medicine entries.');
+        }
+    }
+    async findMedicinesReminderByUserId(userId) {
+        return this.prisma.medicReminder.findMany({
+            where: { userId: userId },
+        });
+    }
+    async createMedicinesDuration(medicines, userId) {
+        const medicineData = medicines.map(medicine => ({
+            medicineLocalId: medicine.medicineLocalId,
+            medicineTakeEachDay: medicine.medicineTakeEachDay,
+            treatmentDurationEndTime: medicine.treatmentDurationEndTime,
+            treatmentDurationStartTime: medicine.treatmentDurationStartTime,
+            userId: userId
+        }));
+        try {
+            await this.prisma.medicDuration.createMany({
+                data: medicineData,
+            });
+            return 'Medicines Duration created successfully';
+        }
+        catch (error) {
+            console.error("Error creating medicines:", error);
+            throw new common_1.BadRequestException('Failed to create medicine entries.');
+        }
+    }
+    async findMedicinesDurationByUserId(userId) {
+        return this.prisma.medicDuration.findMany({
+            where: { userId: userId },
+        });
+    }
+    async createMedicinesAppointment(medicines, userId) {
+        const medicineData = medicines.map(medicine => ({
+            medicineLocalId: medicine.medicineLocalId,
+            location: medicine.location,
+            time: medicine.time,
+            date: medicine.date,
+            doctorName: medicine.doctorName,
+            setReminder: medicine.setReminder,
+            userId: userId
+        }));
+        try {
+            await this.prisma.medicAppointment.createMany({
+                data: medicineData,
+            });
+            return 'Medicines Appointment created successfully';
+        }
+        catch (error) {
+            console.error("Error creating medicines:", error);
+            throw new common_1.BadRequestException('Failed to create medicine entries.');
+        }
+    }
+    async findMedicinesAppointmentByUserId(userId) {
+        return this.prisma.medicAppointment.findMany({
+            where: { userId: userId },
         });
     }
 };

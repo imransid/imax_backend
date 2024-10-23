@@ -8,6 +8,12 @@ import { AuthGuard } from './guards/auth.guards';
 import { MedicineService } from "./medicine.service";
 import { Medicine } from "./entities/medicine.entity";
 import { CreateMedicineDto } from "./dto/create-medicine.dto";
+import { CreateMedicineWeeklyListDto } from "./dto/create-weekly.dto";
+import { CreateMedicineMonthlyListDto } from "./dto/create-monthly.dto";
+import { CreateMedicineAppointmentDto, CreateMedicineDurationDto, CreateMedicineInstructionDto, CreateMedicineReminderDto } from "./dto/create-instruction.dto";
+import { MedicineMonthlyListDto } from "./dto/get-monthly.dto";
+import { MedicineWeeklyListDto } from "./dto/get-Weekly.dto";
+import { DurationDto, GetAppointmentDto, InstructionDto, ReminderDto } from "./dto/get-other.dto";
 
 // import { FileUpload, GraphQLUpload } from 'graphql-upload';
 
@@ -181,5 +187,238 @@ export class medicineResolvers {
       throw new Error(error.message); // Handle errors as needed
     }
   }
+
+
+
+  @Mutation(() => MedicineCreateResponse) // Specify the return type
+   @UseGuards(AuthGuard)
+  async createWeeklyMedicines(
+    @Args('medicines', { type: () => [CreateMedicineWeeklyListDto] }) medicines: CreateMedicineWeeklyListDto[], 
+    @Context() context: { req: any } 
+  ): Promise<MedicineCreateResponse> {
+    const response = new MedicineCreateResponse();
+    const userId =  context.req.user.id; 
+    try {
+      const createdMedicines = await this.medicineService.createMedicinesWeekly(medicines, parseInt(userId));
+  
+      response.message = 'Medicines created successfully';
+      response.medicine = createdMedicines;
+      return response; // Ensure we return the response in the success case
+    } catch (error) {
+      response.message = 'Failed to create medicine entries';
+      response.error = {
+        message: error.message || 'An unknown error occurred', // Provide a message for the error
+        code: error.code ?? 'INTERNAL_SERVER_ERROR' // Optionally provide a code
+      };
+    }
+  }
+
+    // get Weekly medicine
+
+    @Query(() => [MedicineWeeklyListDto]) // Return type
+    @UseGuards(AuthGuard)
+    async getWeeklyMedicinesByUser( @Context() context: { req: any } ): Promise<MedicineWeeklyListDto[]> {
+      const userId = context.req.user.id; 
+      try {
+        return await this.medicineService.findMedicinesWeeklyByUserId(parseInt(userId));
+      } catch (error) {
+        throw new Error(error.message); // Handle errors as needed
+      }
+    }
+
+
+  @Mutation(() => MedicineCreateResponse) // Specify the return type
+  @UseGuards(AuthGuard)
+ async createMonthlyMedicines(
+   @Args('medicines', { type: () => [CreateMedicineMonthlyListDto] }) medicines: CreateMedicineMonthlyListDto[], 
+   @Context() context: { req: any } 
+ ): Promise<MedicineCreateResponse> {
+   const response = new MedicineCreateResponse();
+   const userId =  context.req.user.id; 
+   try {
+
+
+     const createdMedicines = await this.medicineService.createMedicinesMonthly(medicines, parseInt(userId));
+ 
+     response.message = 'Medicines created successfully';
+     response.medicine = createdMedicines;
+     return response; // Ensure we return the response in the success case
+   } catch (error) {
+     response.message = 'Failed to create medicine entries';
+     response.error = {
+       message: error.message || 'An unknown error occurred', // Provide a message for the error
+       code: error.code ?? 'INTERNAL_SERVER_ERROR' // Optionally provide a code
+     };
+   }
+ }
+
+     // get Monthly medicine
+
+     @Query(() => [MedicineMonthlyListDto]) // Return type
+     @UseGuards(AuthGuard)
+     async getMonthlyMedicinesByUser( @Context() context: { req: any } ): Promise<MedicineMonthlyListDto[]> {
+       const userId = context.req.user.id; 
+       try {
+         return await this.medicineService.findMedicinesMonthlyByUserId(parseInt(userId));
+       } catch (error) {
+         throw new Error(error.message); // Handle errors as needed
+       }
+     }
+
+
+ @Mutation(() => MedicineCreateResponse) // Specify the return type
+ @UseGuards(AuthGuard)
+async createInstructionMedicines(
+  @Args('medicines', { type: () => [CreateMedicineInstructionDto] }) medicines: CreateMedicineInstructionDto[],  
+  @Context() context: { req: any } 
+): Promise<MedicineCreateResponse> {
+  const response = new MedicineCreateResponse();
+  const userId =  context.req.user.id; 
+  try {
+
+    const createdMedicines = await this.medicineService.createMedicinesInstruction(medicines, parseInt(userId));
+
+    response.message = 'Medicines Instruction created successfully';
+    response.medicine = createdMedicines;
+    return response; // Ensure we return the response in the success case
+  } catch (error) {
+    response.message = 'Failed to create medicine entries';
+    response.error = {
+      message: error.message || 'An unknown error occurred', // Provide a message for the error
+      code: error.code ?? 'INTERNAL_SERVER_ERROR' // Optionally provide a code
+    };
+  }
+}
+
+  // get Instruction medicine
+
+  @Query(() => [InstructionDto]) // Return type
+  @UseGuards(AuthGuard)
+  async getInstructionMedicinesByUser( @Context() context: { req: any } ): Promise<InstructionDto[]> {
+    const userId = context.req.user.id; 
+    try {
+      return await this.medicineService.findMedicinesInstructionByUserId(parseInt(userId));
+    } catch (error) {
+      throw new Error(error.message); // Handle errors as needed
+    }
+  }
+
+
+
+
+@Mutation(() => MedicineCreateResponse) // Specify the return type
+@UseGuards(AuthGuard)
+async createReminderMedicines(
+ @Args('medicines', { type: () => [CreateMedicineReminderDto] }) medicines: CreateMedicineReminderDto[],  
+ @Context() context: { req: any } 
+): Promise<MedicineCreateResponse> {
+ const response = new MedicineCreateResponse();
+ const userId =  context.req.user.id; 
+ try {
+
+   const createdMedicines = await this.medicineService.createMedicinesReminder(medicines, parseInt(userId));
+
+   response.message = 'Medicines Reminder created successfully';
+   response.medicine = createdMedicines;
+   return response; // Ensure we return the response in the success case
+ } catch (error) {
+   response.message = 'Failed to create medicine entries';
+   response.error = {
+     message: error.message || 'An unknown error occurred', // Provide a message for the error
+     code: error.code ?? 'INTERNAL_SERVER_ERROR' // Optionally provide a code
+   };
+ }
+}
+
+  // get Reminder medicine
+
+  @Query(() => [ReminderDto]) // Return type
+  @UseGuards(AuthGuard)
+  async getReminderMedicinesByUser( @Context() context: { req: any } ): Promise<ReminderDto[]> {
+    const userId = context.req.user.id; 
+    try {
+      return await this.medicineService.findMedicinesReminderByUserId(parseInt(userId));
+    } catch (error) {
+      throw new Error(error.message); // Handle errors as needed
+    }
+  }
+
+
+
+@Mutation(() => MedicineCreateResponse) // Specify the return type
+@UseGuards(AuthGuard)
+async createDurationMedicines(
+ @Args('medicines', { type: () => [CreateMedicineDurationDto] }) medicines: CreateMedicineDurationDto[],  
+ @Context() context: { req: any } 
+): Promise<MedicineCreateResponse> {
+ const response = new MedicineCreateResponse();
+ const userId =  context.req.user.id; 
+ try {
+
+   const createdMedicines = await this.medicineService.createMedicinesDuration(medicines, parseInt(userId));
+
+   response.message = 'Medicines Reminder created successfully';
+   response.medicine = createdMedicines;
+   return response; // Ensure we return the response in the success case
+ } catch (error) {
+   response.message = 'Failed to create medicine entries';
+   response.error = {
+     message: error.message || 'An unknown error occurred', // Provide a message for the error
+     code: error.code ?? 'INTERNAL_SERVER_ERROR' // Optionally provide a code
+   };
+ }
+}
+
+  // get Duration medicine
+
+  @Query(() => [DurationDto]) // Return type
+  @UseGuards(AuthGuard)
+  async getDurationMedicinesByUser( @Context() context: { req: any } ): Promise<DurationDto[]> {
+    const userId = context.req.user.id; 
+    try {
+      return await this.medicineService.findMedicinesDurationByUserId(parseInt(userId));
+    } catch (error) {
+      throw new Error(error.message); // Handle errors as needed
+    }
+  }
+
+
+@Mutation(() => MedicineCreateResponse) // Specify the return type
+@UseGuards(AuthGuard)
+async createAppointmentMedicines(
+ @Args('medicines', { type: () => [CreateMedicineAppointmentDto] }) medicines: CreateMedicineAppointmentDto[],  
+ @Context() context: { req: any } 
+): Promise<MedicineCreateResponse> {
+ const response = new MedicineCreateResponse();
+ const userId =  context.req.user.id; 
+ try {
+
+   const createdMedicines = await this.medicineService.createMedicinesReminder(medicines, parseInt(userId));
+
+   response.message = 'Medicines Reminder created successfully';
+   response.medicine = createdMedicines;
+   return response; // Ensure we return the response in the success case
+ } catch (error) {
+   response.message = 'Failed to create medicine entries';
+   response.error = {
+     message: error.message || 'An unknown error occurred', // Provide a message for the error
+     code: error.code ?? 'INTERNAL_SERVER_ERROR' // Optionally provide a code
+   };
+ }
+}
+
+  // get Appointment medicine
+
+  @Query(() => [GetAppointmentDto]) // Return type
+  @UseGuards(AuthGuard)
+  async getAppointmentMedicinesByUser( @Context() context: { req: any } ): Promise<GetAppointmentDto[]> {
+    const userId = context.req.user.id; 
+    try {
+      return await this.medicineService.findMedicinesAppointmentByUserId(parseInt(userId));
+    } catch (error) {
+      throw new Error(error.message); // Handle errors as needed
+    }
+  }
+
 
 }

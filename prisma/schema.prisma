@@ -8,14 +8,23 @@ datasource db {
 }
 
 model User {
-  id           Int        @id @default(autoincrement())
-  fullName     String
-  mobileNumber String     @unique
-  email        String
-  password     String
-  gender       String
-  birthday     String
-  medicineList Medicine[]
+  id             Int              @id @default(autoincrement())
+  fullName       String
+  mobileNumber   String           @unique
+  email          String
+  password       String
+  gender         String
+  birthday       String
+  medicineList   Medicine[]
+  MedicineWeekly MedicineWeekly[]
+
+  MedicMonthly MedicMonthly[]
+
+  MedicInstruction MedicInstruction[]
+  MedicReminder    MedicReminder[]
+  MedicDuration    MedicDuration[]
+
+  MedicAppointment MedicAppointment[]
 }
 
 model MedicineDetails {
@@ -89,4 +98,68 @@ model Medicine {
   createdDate     String?
   userID          Int // Foreign key to User
   user            User    @relation(fields: [userID], references: [id])
+}
+
+model MedicineWeekly {
+  id              Int      @id @default(autoincrement())
+  medicineLocalId String
+  weeklyTime      String[] // Use String array to store weekly time
+  timeInterval    Int
+  userId          Int // Foreign key to User
+  user            User     @relation(fields: [userId], references: [id])
+  createdAt       DateTime @default(now())
+}
+
+model MedicMonthly {
+  id              Int      @id @default(autoincrement())
+  medicineLocalId String
+  Days            String[]
+  userId          Int // Foreign key to User
+  user            User     @relation(fields: [userId], references: [id])
+  createdAt       DateTime @default(now())
+  eachOfDays      String
+}
+
+model MedicInstruction {
+  id              Int      @id @default(autoincrement())
+  medicineLocalId String
+  userId          Int // Foreign key to User
+  user            User     @relation(fields: [userId], references: [id])
+  createdAt       DateTime @default(now())
+  instrucTion     String
+}
+
+model MedicReminder {
+  id                           Int      @id @default(autoincrement())
+  medicineLocalId              String
+  userId                       Int // Foreign key to User
+  user                         User     @relation(fields: [userId], references: [id])
+  createdAt                    DateTime @default(now())
+  medicineReminderCurrentStock String
+  medicineReminderRemindToLeft String
+  medicineReminderTotalReq     String
+}
+
+model MedicDuration {
+  id                         Int      @id @default(autoincrement())
+  medicineLocalId            String
+  userId                     Int // Foreign key to User
+  user                       User     @relation(fields: [userId], references: [id])
+  createdAt                  DateTime @default(now())
+  medicineTakeEachDay        String
+  treatmentDurationEndTime   String
+  treatmentDurationStartTime String
+}
+
+model MedicAppointment {
+  id              Int      @id @default(autoincrement())
+  medicineLocalId String
+  userId          Int // Foreign key to User
+  user            User     @relation(fields: [userId], references: [id])
+  createdAt       DateTime @default(now())
+  location        String
+  date            String
+  doctorName      String
+  setReminder     String
+  time            String
 }
