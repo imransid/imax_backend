@@ -84,20 +84,21 @@ model Prescription {
 }
 
 model Medicine {
-  id              Int     @id @default(autoincrement())
-  medicineLocalId String  @unique // Ensure this is unique if necessary
-  medicineName    String?
-  medicineStatus  String?
-  takeStatus      String?
-  doseQuantity    String?
-  doseTime        String?
-  strengthMed     String?
-  unitMed         String?
-  typeMed         String?
-  medicineId      String?
-  createdDate     String?
-  userID          Int // Foreign key to User
-  user            User    @relation(fields: [userID], references: [id])
+  id               Int       @id @default(autoincrement())
+  medicineLocalId  String
+  medicineName     String?
+  medicineStatus   String?
+  takeStatus       String?
+  doseQuantity     String?
+  doseTime         String?
+  strengthMed      String?
+  unitMed          String?
+  typeMed          String?
+  medicineId       String?
+  createdDate      String?
+  userID           Int // Foreign key to User
+  user             User      @relation(fields: [userID], references: [id])
+  selectedDateTime DateTime?
 }
 
 model MedicineWeekly {

@@ -25,7 +25,7 @@ migrate
 
 docker exec e09da54d99a4 npx prisma db push --force-reset
 
-
+docker-compose up --build 
 
 
 kill local port

@@ -150,6 +150,7 @@ export class medicineResolvers {
     }
   }
 
+  // waste
 
   @Mutation(() => MedicineCreateResponse) // Specify the return type
   @UseGuards(AuthGuard)

@@ -146,6 +146,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CreateMedicineDto = void 0;
 const graphql_1 = __webpack_require__(/*! @nestjs/graphql */ "@nestjs/graphql");
@@ -225,6 +226,12 @@ __decorate([
     (0, graphql_1.Field)({ nullable: true }),
     __metadata("design:type", String)
 ], CreateMedicineDto.prototype, "createdDate", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsDate)(),
+    (0, graphql_1.Field)({ nullable: true }),
+    __metadata("design:type", typeof (_a = typeof Date !== "undefined" && Date) === "function" ? _a : Object)
+], CreateMedicineDto.prototype, "selectedDateTime", void 0);
 exports.CreateMedicineDto = CreateMedicineDto = __decorate([
     (0, graphql_1.InputType)()
 ], CreateMedicineDto);
@@ -1915,6 +1922,7 @@ let MedicineService = class MedicineService {
             typeMed: medicine.typeMed,
             medicineId: medicine.medicineId,
             createdDate: medicine.createdDate,
+            selectedDateTime: medicine.selectedDateTime ?? null,
             userID: userId
         }));
         try {

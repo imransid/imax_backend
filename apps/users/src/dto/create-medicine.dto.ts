@@ -1,5 +1,5 @@
 import { InputType, Field } from '@nestjs/graphql';
-import { IsOptional, IsString, IsEmail, IsMobilePhone } from 'class-validator';
+import { IsOptional, IsString, IsDate } from 'class-validator';
 
 @InputType() 
 export class CreateMedicineDto {
@@ -63,4 +63,10 @@ export class CreateMedicineDto {
   @IsString()
   @Field({ nullable: true }) // Add Field decorator
   createdDate: string;
+
+
+  @IsOptional()
+  @IsDate()
+  @Field({ nullable: true }) // Add Field decorator for GraphQL
+  selectedDateTime?: Date;
 }

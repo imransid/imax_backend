@@ -217,6 +217,7 @@ import { MedicineMonthlyListDto } from "./dto/get-monthly.dto";
         typeMed: medicine.typeMed,
         medicineId: medicine.medicineId,
         createdDate: medicine.createdDate,
+        selectedDateTime: medicine.selectedDateTime ?? null, 
         userID: userId 
       }));
 
