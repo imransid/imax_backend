@@ -39,4 +39,7 @@ export class Medicine {
 
   @Field() // Expose createdDate
   createdDate: string;
+
+  @Field()
+  selectedDateTime: Date | null
 }
