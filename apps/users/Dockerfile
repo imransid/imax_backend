@@ -1,5 +1,7 @@
 FROM node:alpine As development
 WORKDIR /usr/src/app
+RUN apk add --no-cache openssl
+RUN npx prisma generate
 COPY package*.json ./
 COPY prisma ./prisma/
 RUN yarn install

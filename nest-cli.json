@@ -27,6 +27,15 @@
       "compilerOptions": {
         "tsConfigPath": "apps/users/tsconfig.app.json"
       }
+    },
+    "medicine": {
+      "type": "application",
+      "root": "apps/medicine",
+      "entryFile": "main",
+      "sourceRoot": "apps/medicine/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/medicine/tsconfig.app.json"
+      }
     }
   }
 }
