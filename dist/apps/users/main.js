@@ -2766,7 +2766,7 @@ module.exports = require("path");
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it uses a non-standard name for the exports (exports).
+// This entry needs to be wrapped in an IIFE because it needs to be isolated against other modules in the chunk.
 (() => {
 var exports = __webpack_exports__;
 /*!********************************!*\
@@ -2780,7 +2780,7 @@ const graphql_upload_1 = __webpack_require__(/*! graphql-upload */ "graphql-uplo
 async function bootstrap() {
     const app = await core_1.NestFactory.create(users_module_1.UsersModule);
     app.use((0, graphql_upload_1.graphqlUploadExpress)({ maxFileSize: 100000000, maxFiles: 10 }));
-    await app.listen(4001);
+    await app.listen(4111);
 }
 bootstrap();
 

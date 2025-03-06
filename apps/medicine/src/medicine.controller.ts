@@ -7,6 +7,6 @@ export class MedicineController {
 
   @Get()
   getHello(): string {
-    return this.medicineService.getHello();
+    return null//this.medicineService.getHello();
   }
 }
